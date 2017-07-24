@@ -4,7 +4,7 @@
 define(['angularAMD.min', 'angular-ui-router'], function(angularAMD){
   var app = angular.module('app', ['ui.router']);
   app.config(function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise("/controllers");
+    $urlRouterProvider.otherwise("/status");
     $stateProvider
         .state('status', {
           url: '/status',

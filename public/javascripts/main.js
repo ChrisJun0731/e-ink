@@ -2,9 +2,13 @@
  * Created by Administrator on 2017/7/22.
  */
 require.config({
+  //default baseUrl is the directory of script in data-main
   baseUrl: 'javascripts/plugins',
-  path: {
-
+  paths: {
+    'angular': 'angular.min',
+    'angularAMD': 'angularAMD.min',
+    'app': '../start',
+    'services': '../services'
   },
   shim:{
     'jquery': {
@@ -15,9 +19,9 @@ require.config({
       exports: 'angular'
     },
     'angular-ui-router': {
-      deps: ['angular.min']
+      deps: ['angular']
     },
-    'angularAMD.min': ['angular.min']
+    'angularAMD': ['angular']
   },
-  deps: ['../start']
+  deps: ['app']
 });
