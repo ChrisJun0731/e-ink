@@ -1,25 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Status</title>
-</head>
-<body>
-  <div class="table">
-    <table>
+<section>
+  <div>
+    <table class="table">
       <tr>
-        <td>Server Info</td>
-        <td>Version: {{version}}</td>
+        <td>Visionect Software Suit Version</td>
+        <td>{{}}</td>
       </tr>
       <tr>
-        <td>Online Devices</td>
-        <td>{{status.registered}} Registered Devices.</td>
+        <td>Online Devices </td>
       </tr>
       <tr>
-        <td>Active Sessions</td>
-        <td>{{status.sessions}} 100 Max Sessions</td>
+        <td>{{onlineDeviceNum}}</td>
+      </tr>
+      <tr>
+        <td>Registered Devices </td>
+      </tr>
+      <tr>
+        <td>{{registerDeviceNum}}</td>
+      </tr>
+      <tr>
+        <td>Sessions active/maximum</td>
+      </tr>
+      <tr>
+        <td>{{}}/{{}}</td>
       </tr>
     </table>
   </div>
-</body>
-</html>
+</section>

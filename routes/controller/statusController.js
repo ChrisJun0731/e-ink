@@ -1,13 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-router.get('/headers', function(req, res, next){
-  res.send('aaa');
-});
+var Proxy = require('../service/proxy');
 
 module.exports = router;

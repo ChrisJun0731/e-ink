@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-  users
-</body>
-</html>
+<section>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Username/API Key</th>
+      <th>Password/API Secrete</th>
+      <th>Enabled</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="user in users">
+      <td>username</td>
+      <td>password</td>
+      <td>enabled</td>
+    </tr>
+    </tbody>
+  </table>
+</section>

@@ -3,24 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <title>智能公交电子站牌--管理平台</title>
-  <script type="text/javascript" defer async="true" data-main="javascripts/main.js"
-          src="javascripts/plugins/require.js"></script>
   <link type="text/css" rel="stylesheet" href="stylesheets/bootstrap.css">
+  <script type="text/javascript" defer async="true" data-main="javascripts/main.js" src="javascripts/plugins/require.js"></script>
 </head>
 <body>
   <div class="container">
     <div class="row">
       <div class="col-xs-2">
         <ul class="nav nav-pills nav-stacked">
-          <li ui-sref="status">Software Suite</li>
-          <li ui-sref="status">Status</li>
-          <li ui-sref="devices">Devices</li>
-          <li ui-sref="apps">Apps</li>
-          <li ui-sref="users">Users</li>
-          <li ui-sref="settings">Settings</li>
+          <li><a ui-sref="status">Software Suite</a></li>
+          <li><a ui-sref="status">Status</a></li>
+          <li><a ui-sref="devices">Devices</a></li>
+          <li><a ui-sref="apps">Apps</a></li>
+          <li><a ui-sref="users">Users</a></li>
+          <li><a ui-sref="settings">Settings</a></li>
         </ul>
       </div>
-      <div class="col-xs=10">
+      <div class="col-xs-10">
         <div ui-view="container"></div>
       </div>
     </div>

@@ -2,9 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Devices</title>
 </head>
 <body>
- devices
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name/UUID</th>
+        <th>Battery</th>
+        <th>State</th>
+        <th>Signal Strength</th>
+        <th>Connectivity</th>
+        <th>Firmware</th>
+        <th>HW.reversion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="device in devices">
+        <td>{{device.Uuid}}</td>
+        <td>{{device.Status.battery}}</td>
+        <td>{{device.State}}</td>
+        <td>{{}}</td>
+        <td>{{device.connectivity}}</td>
+        <td>{{device.Options.Firmware}}</td>
+        <td>{{device.Options.Reversion}}</td>
+      </tr>
+    </tbody>
+  </table>
 </body>
 </html>
