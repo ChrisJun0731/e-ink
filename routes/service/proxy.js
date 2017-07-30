@@ -1,0 +1,102 @@
+/**
+ * Created by Administrator on 2017/7/26.
+ */
+var http = require('http');
+var crypto = require('crypto');
+var util = require('util');
+
+var proxy = function(request, response){
+    this.host = '';
+    this.port = 8081;
+
+    /**
+     * 代理客户端的get请求，并将结果直接返回到客户端。
+     * @param request express框架的request对象
+     * @param response express框架的response对象
+     */
+    this.forwardGetRequest = function(){
+        var headers = this.createHeader(request);
+        var clientRequest = this.createRequest(request, headers);
+        clientRequest.end();
+        clientRequest.on('response', function(clientResponse){
+            var data = '';
+            clientResponse.on('data', function(chunk){
+                data += chunk;
+            });
+            clientResponse.on('end', function(){
+                response.send(data);
+            });
+        })
+    };
+
+    this.forwardPostRequest = function(request, response){
+
+    };
+
+    /**
+     * 根据客户端的请求，构建代理请求的header
+     * @param request  客户端请求
+     * @returns {{}} 代理请求的头对象
+     */
+    this.createHeader = function(request) {
+        var apiKey = 'b3e156d1483f705c';
+        var apiSecret = 'eYLjN5IVtDAN3yHP5BbjAGlQZt4ajRgUDQrLpjc4l/o';
+        var date = Date().split('(')[0].slice(0,-1);
+        var content_type = 'application/json';
+        var method = request.method;
+        var path = request.url;
+
+        var auth = crypto.createHmac('sha256', apiSecret)
+            .update(util.format('%s\n%s\n%s\n%s\n%s', method, '', content_type, date, path))
+            .digest('base64');
+
+        var headers = {
+            'Content-Type': 'application/json'
+        };
+        headers.Date = date;
+        headers.Authorization = util.format('%s:%s', apiKey, auth);
+        return headers;
+    };
+
+    /**
+     * 创建代理请求对象
+     * @param request 客户端请求
+     * @param headers 代理请求的头信息
+     * @returns {*} 代理请求对象
+     */
+    this.createRequest = function(request, headers){
+        var req = http.request({
+            method: request.method,
+            host: this.host,
+            port: this.port,
+            path: '/api/device/',
+            headers: headers
+        });
+        return req;
+    };
+
+    /**
+     * 设置外部服务器的主机地址
+     * @param host 主机地址
+     */
+    this.setHost = function(host){
+        this.host = host;
+    }
+
+    /**
+     * 设置外部服务器的端口号
+     * @param port 端口号
+     */
+    this.setPort = function(port){
+        this.port = port;
+    }
+};
+
+module.exports = proxy;
+
+
+
+
+
+
+
