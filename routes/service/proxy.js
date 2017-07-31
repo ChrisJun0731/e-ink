@@ -4,10 +4,15 @@
 var http = require('http');
 var crypto = require('crypto');
 var util = require('util');
+var fs = require('fs');
 
 var proxy = function(request, response){
-    this.host = '';
-    this.port = 8081;
+
+    var config = fs.readFileSync('public/config/config.json', 'utf-8');
+    var configObj = JSON.parse(config);
+    this.host = configObj.serverAddress;
+    this.port = configObj.serverPort;
+
 
     /**
      * 代理客户端的get请求，并将结果直接返回到客户端。
@@ -69,27 +74,11 @@ var proxy = function(request, response){
             method: request.method,
             host: this.host,
             port: this.port,
-            path: '/api/device/',
+            path: request.url,
             headers: headers
         });
         return req;
     };
-
-    /**
-     * 设置外部服务器的主机地址
-     * @param host 主机地址
-     */
-    this.setHost = function(host){
-        this.host = host;
-    }
-
-    /**
-     * 设置外部服务器的端口号
-     * @param port 端口号
-     */
-    this.setPort = function(port){
-        this.port = port;
-    }
 };
 
 module.exports = proxy;

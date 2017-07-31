@@ -8,8 +8,6 @@ var Proxy = require('../service/proxy');
 
 router.get('/api/device/', function(req, res){
 	var proxy = new Proxy(req, res);
-	proxy.setHost('192.168.0.101');
-	proxy.setPort(8081);
 	proxy.forwardGetRequest();
 });
 

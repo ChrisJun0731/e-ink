@@ -2,16 +2,21 @@
   <table class="table">
     <thead>
     <tr>
-      <th>Username/API Key</th>
-      <th>Password/API Secrete</th>
+      <th>Username</th>
+      <th>Password</th>
       <th>Enabled</th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="user in users">
-      <td>username</td>
-      <td>password</td>
-      <td>enabled</td>
+    <tr ng-repeat="user in users" ng-if="user.IsAPI==false">
+      <td>{{user.Username}}</td>
+      <td>
+        ......
+      </td>
+      <td>
+        <p ng-if="user.IsActive==true">Enabled</p>
+        <p ng-if="user.IsActive==false">Disable</p>
+      </td>
     </tr>
     </tbody>
   </table>
