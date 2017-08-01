@@ -1,0 +1,46 @@
+<section>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Url</th>
+        <th>Description</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="app in apps">
+        <td>
+          <span editable-text="app.Name" e-name="name" e-form="rowform">{{app.Name||'empty'}}</span>
+        </td>
+        <td>
+          <span editable-text="app.Url" e-name="url" e-form="rowform">{{app.Url||'empty'}}</span>
+        </td>
+        <td>
+          <span editable-text="app.Description" e-name="description" e-form="rowform">{{app.Description||'empty'}}</span>
+        </td>
+        <td style="white-space: nowrap">
+          <form editable-form name="rowform" onbeforesave="saveApp($data, app._id)" ng-show="rowform.$visible" class="form-buttons form-inline">
+            <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+              save
+            </button>
+            <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+              cancel
+            </button>
+          </form>
+          <div class="buttons" ng-show="!rowform.$visible">
+            <button type="button" class="btn btn-primary" ng-click="rowform.$show()">
+              edit
+            </button>
+            <button type="button" class="btn btn-danger" ng-click="removeApp($index, app._id)">
+              del
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <tfoot>
+    <button class="btn btn-info pull-right" ng-click="addApp()">Add App</button>
+  </tfoot>
+</section>

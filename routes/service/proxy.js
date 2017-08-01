@@ -34,9 +34,41 @@ var proxy = function(request, response){
         })
     };
 
-    this.forwardPostRequest = function(request, response){
-
+    this.forwardDelRequest = function(){
+		var headers = this.createHeader(request);
+		var clientRequest = this.createRequest(request, headers);
+		clientRequest.end();
+		clientRequest.on('response', function(clientResponse){
+		    response.send(clientResponse.statusCode);
+        });
     };
+
+    this.forwardPutRequest = function(){
+        var headers = this.createHeader(request);
+        var clientRequest = this.createRequest(request, headers);
+        clientRequest.write(JSON.stringify(request.body));
+        clientRequest.end();
+        clientRequest.on('response', function(clientResponse){
+            response.send(clientResponse.statusCode);
+        });
+    };
+
+    this.forwardPostRequest = function(){
+        var headers = this.createHeader(request);
+        var clientRequest = this.createRequest(request, headers);
+        clientRequest.write(JSON.stringify(request.body));
+        clientRequest.end();
+		clientRequest.on('response', function(clientResponse){
+		    var data = '';
+		    clientResponse.on('data', function(chunk){
+                data += chunk;
+            });
+		    clientResponse.on('end', function(){
+		        response.send(data);
+            });
+		});
+    }
+
 
     /**
      * 根据客户端的请求，构建代理请求的header
@@ -50,7 +82,9 @@ var proxy = function(request, response){
         var content_type = 'application/json';
         var method = request.method;
         var path = request.url;
-
+        if(request.query.id != null){
+            path = request._parsedUrl.pathname + request.query.id;
+        }
         var auth = crypto.createHmac('sha256', apiSecret)
             .update(util.format('%s\n%s\n%s\n%s\n%s', method, '', content_type, date, path))
             .digest('base64');
@@ -64,17 +98,21 @@ var proxy = function(request, response){
     };
 
     /**
-     * 创建代理请求对象
+     * 创建Get代理请求对象
      * @param request 客户端请求
      * @param headers 代理请求的头信息
      * @returns {*} 代理请求对象
      */
     this.createRequest = function(request, headers){
+        var path = request.url;
+        if(request.query.id != null){
+            path = request._parsedUrl.pathname + request.query.id;
+        }
         var req = http.request({
             method: request.method,
             host: this.host,
             port: this.port,
-            path: request.url,
+            path: path,
             headers: headers
         });
         return req;

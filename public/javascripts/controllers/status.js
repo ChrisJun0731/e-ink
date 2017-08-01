@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2017/7/22.
  */
-define(['../services/devicesService.js'], function(){
+define(['services/devicesService'], function(){
   return['$scope', 'DevicesService', function($scope, devicesService){
 	  devicesService.getDevices().then(function(rs){
         if(rs.status == 200){

@@ -5,10 +5,11 @@ require.config({
   //default baseUrl is the directory of script in data-main
   baseUrl: 'javascripts/plugins',
   paths: {
-    'angular': 'angular.min',
+  	'angular': 'angular.min',
     'angularAMD': 'angularAMD.min',
     'app': '../start',
-    'services': '../services'
+    'services': '../services',
+      'xeditable': 'xeditable'
   },
   shim:{
     'jquery': {
@@ -21,7 +22,8 @@ require.config({
     'angular-ui-router': {
       deps: ['angular']
     },
-    'angularAMD': ['angular']
+    'angularAMD': ['angular'],
+	  'xeditable': ['angular']
   },
   deps: ['app']
 });

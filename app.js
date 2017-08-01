@@ -10,6 +10,7 @@ var indexController = require('./routes/controller/indexController');
 var statusController = require('./routes/controller/statusController');
 var devicesController = require('./routes/controller/devicesController');
 var usersController = require('./routes/controller/usersController');
+var appsController = require('./routes/controller/appsController');
 
 var app = express();
 
@@ -30,6 +31,7 @@ app.use('/', indexController);
 app.use('/', statusController);
 app.use('/', devicesController);
 app.use('/', usersController);
+app.use('/', appsController);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
