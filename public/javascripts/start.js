@@ -1,8 +1,8 @@
 /**
  * Created by Administrator on 2017/7/23.
  */
-define(['angularAMD.min', 'angular-ui-router','xeditable'], function(angularAMD){
-  var app = angular.module('app', ['ui.router','xeditable']);
+define(['angularAMD.min', 'angular-ui-router', 'xeditable', 'ui-bootstrap'], function(angularAMD){
+  var app = angular.module('app', ['ui.router','xeditable', 'ui.bootstrap']);
   app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/status");
     $stateProvider

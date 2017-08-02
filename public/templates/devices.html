@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Devices</title>
-</head>
-<body>
+<section>
   <table class="table">
     <thead>
       <tr>
@@ -15,19 +9,48 @@
         <th>Connectivity</th>
         <th>Firmware</th>
         <th>HW.reversion</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="device in devices">
         <td>{{device.Uuid}}</td>
-        <td>{{device.Status.battery}}</td>
+        <td>{{device.Status.Battery+"%"}}</td>
         <td>{{device.State}}</td>
-        <td>{{}}</td>
+        <td>{{"-"+ device.Status.RSSI}}</td>
         <td>{{device.connectivity}}</td>
-        <td>{{device.Options.Firmware}}</td>
-        <td>{{device.Options.Reversion}}</td>
+        <td>{{device.Status.FirmwareMajor+"."+device.Status.FirmwareMinor+"."+device.Status.FirmwareRevision}}</td>
+        <td>{{device.Options.Revision}}</td>
+        <td><button type="button" class="btn btn-info btn-sm" ng-click="openDeviceModal('lg', device.Uuid)">Edit</button></td>
       </tr>
     </tbody>
   </table>
-</body>
-</html>
+  <div class="btn-group">
+    <button class="btn btn-danger pull-right">Remove device</button>
+    <button class="btn btn-danger pull-right">Reboot device</button>
+  </div>
+</section>
+<script type="text/ng-template" id="deviceModal.html">
+  <div class="modal-header">
+    <h3 class="modal-title" id="modal-title">{{uuid}}</h3>
+  </div>
+  <div class="modal-body">
+    <uib-tabset active="0">
+      <uib-tab heading="Status&Settings" index="0">
+        Status&Settings
+      </uib-tab>
+      <uib-tab heading="Device Configuration" index="1">
+        Device Configuration
+      </uib-tab>
+      <uib-tab heading="Live View" index="2">
+        Live View
+      </uib-tab>
+      <uib-tab heading="Charts" index="3">
+        Charts
+      </uib-tab>
+      <uib-tab heading="Events" index="4">
+        Events
+      </uib-tab>
+    </uib-tabset>
+  </div>
+</script>

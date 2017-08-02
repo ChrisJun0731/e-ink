@@ -6,6 +6,18 @@ define(['services/usersService'], function(){
 		usersService.getUsers().then(function(rs){
 			$scope.users = rs.data;
 			console.log(rs.data);
-		})
+		});
+		$scope.addUser = function(){
+			var user = {
+
+			}
+		};
+		$scope.removeUser = function(index, id){
+
+		};
+		$scope.saveUser = function(data, id){
+			angular.extend(data, {_id: id});
+
+		};
 	}];
 })

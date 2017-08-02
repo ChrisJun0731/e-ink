@@ -1,10 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-  settings
-</body>
-</html>
+<section>
+  <table class="table">
+    <caption>Global</caption>
+    <tr>
+      <td class="col-sm-4">Development Name</td>
+      <td class="col-sm-8"><input type="text"></td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Development Key</td>
+      <td class="col-sm-8">
+        <input type="checkbox" name="features">Sleep Manager
+        <input type="checkbox" name="features">External Battery
+        <input type="checkbox" name="features">Status Requester
+      </td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">TimeZone</td>
+      <td><select name="timeZone"></select></td>
+    </tr>
+  </table>
+  <table class="table">
+    <caption>Graphics Engine</caption>
+    <tr>
+      <td class="col-sm-4">Default Backend</td>
+      <td class="col-sm-8">
+        <select name="backend"></select>
+      </td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Max Sessions</td>
+      <td class="col-sm-8">
+        <input type="text" name="max_sessions"/>
+      </td>
+    </tr>
+    <tr>
+      <td>Image Cache Size</td>
+      <td><input type="text" name="image_cache_size"/></td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Session Cleanup Threshold(in minutes)</td>
+      <td class="col-sm-8">
+        <input type="text"/>
+      </td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Display Options</td>
+      <td class="col-sm-8">
+        <input type="checkbox" name="display">Clear screen
+        <input type="checkbox" name="display">Draw border
+        <input type="checkbox" name="display">Disable inverse updates
+      </td>
+    </tr>
+    <tr>
+      <td class="col-sm-4"></td>
+      <td class="col-sm-8">
+        Visionect Software Suite needs to be restarted in order for display options changes to take effect
+      </td>
+    </tr>
+  </table>
+  <table class="table">
+    <caption>HTML Backend</caption>
+    <tr>
+      <td class="col-sm-4">Default Url</td>
+      <td class="col-sm-8"></td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Automatic page reload in seconds(0 = disabled)</td>
+      <td class="col-sm-8"></td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Web Session Memory Limit</td>
+      <td class="col-sm-8"></td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">User Agent</td>
+      <td class="col-sm-8"></td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Render Timeout</td>
+      <td class="col-sm-8"></td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Enable Font Antialias</td>
+      <td class="col-sm-8"></td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Enable Page Caching</td>
+      <td class="col-sm-8"></td>
+    </tr>
+  </table>
+  <table class="table">
+    <caption>Default Device Settings</caption>
+    <tr>
+      <td class="col-sm-4">Ignore Input If Device Not in Sync</td>
+      <td class="col-sm-8"></td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Big Depth</td>
+      <td class="col-sm-8"></td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Display Rotation</td>
+      <td class="col-sm-8"></td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Dithering</td>
+      <td class="col-sm-8"></td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Force Rectangle Support</td>
+      <td class="col-sm-8"></td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Force group synchronization</td>
+      <td class="col-sm-8"></td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Synchronize groups only all of its devices are present</td>
+      <td class="col-sm-8"></td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Automatic Firmware Update</td>
+      <td class="col-sm-8"></td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Automatic Bootloader Upgrade</td>
+      <td class="col-sm-8"></td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Device state polling</td>
+      <td class="col-sm-8"></td>
+    </tr>
+  </table>
+  <table class="table">
+    <caption>Firmwares</caption>
+    <td class="col-sm-4">Firmware Repository</td>
+    <td class="col-sm-8"></td>
+  </table>
+</section>
