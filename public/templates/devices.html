@@ -21,7 +21,7 @@
         <td>{{device.connectivity}}</td>
         <td>{{device.Status.FirmwareMajor+"."+device.Status.FirmwareMinor+"."+device.Status.FirmwareRevision}}</td>
         <td>{{device.Options.Revision}}</td>
-        <td><button type="button" class="btn btn-info btn-sm" ng-click="openDeviceModal('lg', device.Uuid)">Edit</button></td>
+        <td><button type="button" class="btn btn-info btn-sm" ng-click="openDeviceModal('lg', $index)">Edit</button></td>
       </tr>
     </tbody>
   </table>
@@ -37,7 +37,75 @@
   <div class="modal-body">
     <uib-tabset active="0">
       <uib-tab heading="Status&Settings" index="0">
-        Status&Settings
+        <table class="table">
+          <caption>Status {{device.Status}}</caption>
+          <tr>
+            <td class="col-sm-4">Name</td>
+            <td class="col-sm-8"></td>
+          </tr>
+          <tr>
+            <td class="col-sm-4">Battery</td>
+            <td class="col-sm-8"></td>
+          </tr>
+          <tr>
+            <td class="col-sm-4">Signal Strength</td>
+            <td class="col-sm-8"></td>
+          </tr>
+          <tr>
+            <td class="col-sm-4">Temperature</td>
+            <td class="col-sm-8"></td>
+          </tr>
+          <tr>
+            <td class="col-sm-4">Hardware Revision</td>
+            <td class="col-sm-8"></td>
+          </tr>
+          <tr>
+            <td class="col-sm-4">Firmware Revision</td>
+            <td class="col-sm-8"></td>
+          </tr>
+        </table>
+        <table class="table">
+          <tr>
+            <td class="col-sm-4">Period</td>
+            <td class="col-sm-8"></td>
+          </tr>
+        </table>
+        <table class="table">
+          <caption>Device Handling</caption>
+          <tr>
+            <td class="col-sm-4">Automatic update to latest firmware</td>
+            <td class="col-sm-8"></td>
+          </tr>
+          <tr>
+            <td class="col-sm-4">Automatic update to latest bootloader</td>
+            <td class="col-sm-8"></td>
+          </tr>
+        </table>
+        <table class="table">
+          <caption>Session</caption>
+          <tr>
+            <td class="col-sm-4">Backend</td>
+            <td class="col-sm-8"></td>
+          </tr>
+          <tr>
+            <td class="col-sm-4">Default dithering</td>
+            <td class="col-sm-8"></td>
+          </tr>
+          <tr>
+            <td class="col-sm-4">Default bit depth</td>
+            <td class="col-sm-8"></td>
+          </tr>
+        </table>
+        <table class="table">
+          <tr>
+            <td class="col-sm-4">Display type</td>
+            <td class="col-sm-8"></td>
+          </tr>
+          <tr>
+            <td class="col-sm-4">Display rotation</td>
+            <td class="col-sm-8"></td>
+          </tr>
+        </table>
       </uib-tab>
       <uib-tab heading="Device Configuration" index="1">
         Device Configuration

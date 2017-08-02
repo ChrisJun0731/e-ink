@@ -6,20 +6,20 @@ define(['services/devicesService'], function(){
 		devicesService.getDevices().then(function(rs){
 			$scope.devices = rs.data;
 		});
-		$scope.openDeviceModal = function(size, uuid){
+		$scope.openDeviceModal = function(size, index){
 			$uibModal.open({
 				templateUrl: 'deviceModal.html',
 				controller: deviceModalController,
 				size: size,
 				resolve:{
-					uuid: function(){
-						return uuid;
+					device: function(){
+						return $scope.devices[index];
 					}
 				}
 			});
 		};
-		var deviceModalController = function($scope, uuid){
-			$scope.uuid = uuid;
+		var deviceModalController = function($scope, device){
+			$scope.uuid = device.Uuid;
 		};
 	}];
 
