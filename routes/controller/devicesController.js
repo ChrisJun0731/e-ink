@@ -11,4 +11,9 @@ router.get('/api/device/', function(req, res){
 	proxy.forwardGetRequest();
 });
 
+router.get('/api/session/', function(req, res){
+	var proxy = new Proxy(req, res);
+	proxy.forwardGetRequest();
+});
+
 module.exports = router;

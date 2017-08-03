@@ -9,6 +9,12 @@ define(['app'], function(app){
 					return response;
 				});
 				return promise;
+			},
+			getSession: function(config){
+				var promise = $http.get('/api/session/', config).then(function(response){
+					return response;
+				});
+				return promise;
 			}
 		};
 		return devicesService;

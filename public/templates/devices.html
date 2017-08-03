@@ -32,39 +32,44 @@
 </section>
 <script type="text/ng-template" id="deviceModal.html">
   <div class="modal-header">
-    <h3 class="modal-title" id="modal-title">{{uuid}}</h3>
+    <h3 class="modal-title" id="modal-title">{{device.Uuid}}</h3>
   </div>
   <div class="modal-body">
     <uib-tabset active="0">
       <uib-tab heading="Status&Settings" index="0">
         <table class="table">
-          <caption>Status {{device.Status}}</caption>
+          <caption>Status {{device.State}}</caption>
           <tr>
             <td class="col-sm-4">Name</td>
-            <td class="col-sm-8"></td>
+            <td class="col-sm-8">{{device.Name}}</td>
           </tr>
           <tr>
             <td class="col-sm-4">Battery</td>
-            <td class="col-sm-8"></td>
+            <td class="col-sm-8">{{device.Status.Battery + "%"}}</td>
           </tr>
           <tr>
             <td class="col-sm-4">Signal Strength</td>
-            <td class="col-sm-8"></td>
+            <td class="col-sm-8">{{"-" + device.Status.RSSI}}</td>
           </tr>
           <tr>
             <td class="col-sm-4">Temperature</td>
-            <td class="col-sm-8"></td>
+            <td class="col-sm-8">{{device.Status.Temperature}}</td>
           </tr>
           <tr>
             <td class="col-sm-4">Hardware Revision</td>
-            <td class="col-sm-8"></td>
+            <td class="col-sm-8">{{device.Options.Revision}}</td>
           </tr>
           <tr>
             <td class="col-sm-4">Firmware Revision</td>
-            <td class="col-sm-8"></td>
+            <td class="col-sm-8">
+              {{device.Status.FirmwareMajor+"."+device.Status.FirmwareMinor+"."+device.Status.FirmwareRevision}}
+            </td>
           </tr>
         </table>
         <table class="table">
+          <thead>
+            <caption>Sleep</caption>
+          </thead>
           <tr>
             <td class="col-sm-4">Period</td>
             <td class="col-sm-8"></td>
@@ -77,6 +82,7 @@
             <td class="col-sm-8"></td>
           </tr>
           <tr>
+
             <td class="col-sm-4">Automatic update to latest bootloader</td>
             <td class="col-sm-8"></td>
           </tr>
@@ -85,25 +91,45 @@
           <caption>Session</caption>
           <tr>
             <td class="col-sm-4">Backend</td>
+            <td class="col-sm-8">
+              <select ng-model="session.Backend.Name" ng-options="backend.value as backend.label for backend in backends">
+              </select>
+            </td>
+          </tr>
+          <tr ng-show="session.Backend.Name=='HTML'">
+            <td class="col-sm-4">Application</td>
+            <td class="col-sm-8">
+              <select ng-model="session.Backend.Fields.url" ng-options="app.Url as app.Name for app in apps"></select>
+            </td>
+          </tr>
+          <tr ng-show="session.Backend.Name=='HTML'">
+            <td class="col-sm-4">Automatic page reload in seconds (0=disabled)</td>
             <td class="col-sm-8"></td>
           </tr>
           <tr>
             <td class="col-sm-4">Default dithering</td>
-            <td class="col-sm-8"></td>
+            <td class="col-sm-8">
+              <select ng-model="session.Options.DefaultDithering" ng-options="dithering for dithering in ditherings"></select>
+            </td>
           </tr>
           <tr>
             <td class="col-sm-4">Default bit depth</td>
-            <td class="col-sm-8"></td>
+            <td class="col-sm-8">
+              <select ng-model="session.Options.DefaultEncoding" ng-options="encoding for encoding in encodings"></select>
+            </td>
           </tr>
         </table>
         <table class="table">
+          <thead>
+            <caption>Displays</caption>
+          </thead>
           <tr>
             <td class="col-sm-4">Display type</td>
-            <td class="col-sm-8"></td>
+            <td class="col-sm-8">{{device.Options.DisplayType}}</td>
           </tr>
           <tr>
             <td class="col-sm-4">Display rotation</td>
-            <td class="col-sm-8"></td>
+            <td class="col-sm-8">{{device.Displays[0].Rotation}}</td>
           </tr>
         </table>
       </uib-tab>
