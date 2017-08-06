@@ -15,6 +15,12 @@ define(['app'], function(app){
 					return response;
 				});
 				return promise;
+			},
+			getImages: function(config){
+				var promise = $http.get('/api/live/device/', config).then(function(response){
+					return response;
+				});
+				return promise;
 			}
 		};
 		return devicesService;

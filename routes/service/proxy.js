@@ -29,6 +29,9 @@ var proxy = function(request, response){
                 data += chunk;
             });
             clientResponse.on('end', function(){
+            	if(clientResponse.headers['content-type'] == 'image/png'){
+            		response.set('Content-Type', 'image/png');
+				}
                 response.send(data);
             });
         })
@@ -79,19 +82,12 @@ var proxy = function(request, response){
         var apiKey = 'b3e156d1483f705c';
         var apiSecret = 'eYLjN5IVtDAN3yHP5BbjAGlQZt4ajRgUDQrLpjc4l/o';
         var date = Date().split('(')[0].slice(0,-1);
-        var content_type = 'application/json';
         var method = request.method;
-        var path = request.url;
-        if(request.query.id != null){
-            path = request._parsedUrl.pathname + request.query.id;
-        }
+        var path = this.createPath(request);
         var auth = crypto.createHmac('sha256', apiSecret)
-            .update(util.format('%s\n%s\n%s\n%s\n%s', method, '', content_type, date, path))
+            .update(util.format('%s\n%s\n%s\n%s\n%s', method, '', '', date, path))
             .digest('base64');
-
-        var headers = {
-            'Content-Type': 'application/json'
-        };
+		var headers = {};
         headers.Date = date;
         headers.Authorization = util.format('%s:%s', apiKey, auth);
         return headers;
@@ -104,10 +100,7 @@ var proxy = function(request, response){
      * @returns {*} 代理请求对象
      */
     this.createRequest = function(request, headers){
-        var path = request.url;
-        if(request.query.id != null){
-            path = request._parsedUrl.pathname + request.query.id;
-        }
+        var path = this.createPath(request);
         var req = http.request({
             method: request.method,
             host: this.host,
@@ -116,6 +109,18 @@ var proxy = function(request, response){
             headers: headers
         });
         return req;
+    };
+
+	/**
+     * 根据request请求，创建代理请求的路径
+	 * @param request
+	 */
+	this.createPath = function(request){
+		var path = request.url;
+		if(request.query.id != null){
+			path = request._parsedUrl.pathname + request.query.id;
+		}
+		return path;
     };
 };
 

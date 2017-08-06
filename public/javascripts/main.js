@@ -13,9 +13,6 @@ require.config({
 		'ui-bootstrap': 'ui-bootstrap-tpls-2.5.0'
 	},
 	shim:{
-		'jquery': {
-			exports: '$'
-		},
 		'angular': {
 			deps: ['jquery'],
 			exports: 'angular'
@@ -26,7 +23,7 @@ require.config({
 		'angularAMD': ['angular'],
 		'xeditable': ['angular'],
 		'angular-animate': ['angular'],
-		'ui-bootstrap': ['angular', 'angular-animate']
+		'ui-bootstrap': ['angular', 'angular-animate'],
 	},
 	deps: ['app']
 });

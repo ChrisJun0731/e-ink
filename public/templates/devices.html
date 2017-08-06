@@ -137,10 +137,25 @@
         Device Configuration
       </uib-tab>
       <uib-tab heading="Live View" index="2">
-        Live View
+        <div>
+          <div class="row">
+            <div class="col-sm-6">
+              <h6 class="caption text-center">device</h6>
+              <div class="thumbnail">
+                <img ng-src="{{clientImgPath}}"/>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <h6 class="caption text-center">server</h6>
+              <div class="thumbnail">
+                <img ng-src="{{serverImgPath}}"/>
+              </div>
+            </div>
+          </div>
+        </div>
       </uib-tab>
       <uib-tab heading="Charts" index="3">
-        Charts
+        <canvas id="signalChart" width="400px" height="400px"></canvas>
       </uib-tab>
       <uib-tab heading="Events" index="4">
         Events
