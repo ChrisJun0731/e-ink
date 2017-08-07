@@ -20,6 +20,7 @@ require.config({
 		'angular-ui-router': {
 			deps: ['angular']
 		},
+		'Chart': ['Moment'],
 		'angularAMD': ['angular'],
 		'xeditable': ['angular'],
 		'angular-animate': ['angular'],

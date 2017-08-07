@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2017/7/23.
  */
-define(['Chart', 'services/devicesService', 'services/appsService'], function(Chart){
+define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'services/appsService'], function(moment, Chart, angular){
 	return['$scope', 'DevicesService', 'AppsService', '$uibModal', function($scope, devicesService, appsService, $uibModal){
 		devicesService.getDevices().then(function(rs){
 			$scope.devices = rs.data;
@@ -48,29 +48,73 @@ define(['Chart', 'services/devicesService', 'services/appsService'], function(Ch
 			});
 
 			//Charts
-			$scope.$on('renderFinished', function(e){
+			var timeFormat = 'MM/DD/YYYY HH:mm';
+			// console.log('当前时间的utc为:'+ today.utc()/1000);
+			// console.log('上个月的utc为:'+ lastMonth.utc()/1000);
+			$scope.drawLine = function(){
 				var ctx = angular.element('#signalChart').get(0).getContext('2d');
-				var data = {
-					labels : ["January","February","March","April","May","June","July"],
-					datasets : [
-						{
-							fillColor : "rgba(220,220,220,0.5)",
-							strokeColor : "rgba(220,220,220,1)",
-							pointColor : "rgba(220,220,220,1)",
-							pointStrokeColor : "#fff",
-							data : [65,59,90,81,56,55,40]
-						},
-						{
-							fillColor : "rgba(151,187,205,0.5)",
-							strokeColor : "rgba(151,187,205,1)",
-							pointColor : "rgba(151,187,205,1)",
-							pointStrokeColor : "#fff",
-							data : [28,48,40,19,96,27,100]
-						}
-					]
+				function newDate(days){
+					return moment().add(days, 'd');
+				}
+				var labels = [
+					newDate(0),
+					newDate(1),
+					newDate(2),
+					newDate(3),
+					newDate(4),
+					newDate(5),
+					newDate(6),
+					newDate(7)
+				]
+
+				var data =  {
+					labels: labels,
+					datasets: [{
+						label: "Signal Strength",
+						data: [4,5,6,8,19,29,8,19],
+						lineTension: 0
+					}]
 				};
-				new Chart(ctx).Line(data);
-			});
+
+				var chart = new Chart(ctx, {
+					type: 'line',
+					data: data,
+					options: {
+						scales: {
+							xAxes: [
+								{
+									type: 'time',
+									time: {
+										// format: timeFormat,
+										// displayFormats: {
+										// 	day: 'll',
+										// },
+										tooltipFormat: 'll HH:mm',
+										max: moment().add(30, 'd'),
+										min: moment().subtract(10, 'd'),
+										// unit: 'week'
+										unitStepSize: 2
+									},
+									scaleLabel: {
+										display: true,
+										labelString: 'Date'
+									}
+								}
+							],
+							yAxes: [
+								{
+									scaleLabel: {
+										display: true,
+										labelString: 'value'
+									}
+								}
+							]
+						}
+					}
+				});
+			};
+
+
 		};
 	}];
 
