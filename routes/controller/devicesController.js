@@ -27,4 +27,9 @@ router.get('/api/live/device/', function(req, res){
 	});
 });
 
+router.get('/api/devicestatus/', function(req, res){
+	var proxy = new Proxy(req, res);
+	proxy.forwardGetRequest();
+})
+
 module.exports = router;

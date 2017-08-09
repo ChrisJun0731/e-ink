@@ -29,9 +29,6 @@ var proxy = function(request, response){
                 data += chunk;
             });
             clientResponse.on('end', function(){
-            	if(clientResponse.headers['content-type'] == 'image/png'){
-            		response.set('Content-Type', 'image/png');
-				}
                 response.send(data);
             });
         })
@@ -100,7 +97,7 @@ var proxy = function(request, response){
      * @returns {*} 代理请求对象
      */
     this.createRequest = function(request, headers){
-        var path = this.createPath(request);
+        var path = this.createPathWithParam(request);
         var req = http.request({
             method: request.method,
             host: this.host,
@@ -122,6 +119,17 @@ var proxy = function(request, response){
 		}
 		return path;
     };
+
+	this.createPathWithParam = function(request){
+		var path = request.url;
+		if(request.query.id != null){
+			path = request._parsedUrl.pathname + request.query.id;
+		}
+		if(request.query.from != null & request.query.to != null){
+			path += '?from=' + request.query.from + '&to=' + request.query.to;
+		}
+		return path;
+	}
 };
 
 module.exports = proxy;

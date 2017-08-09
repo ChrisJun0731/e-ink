@@ -48,74 +48,123 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 			});
 
 			//Charts
-			var timeFormat = 'MM/DD/YYYY HH:mm';
-			// console.log('当前时间的utc为:'+ today.utc()/1000);
-			// console.log('上个月的utc为:'+ lastMonth.utc()/1000);
-			$scope.drawLine = function(){
-				var ctx = angular.element('#signalChart').get(0).getContext('2d');
-				function newDate(days){
-					return moment().add(days, 'd');
-				}
-				var labels = [
-					newDate(0),
-					newDate(1),
-					newDate(2),
-					newDate(3),
-					newDate(4),
-					newDate(5),
-					newDate(6),
-					newDate(7)
-				]
+			$scope.drawChart = function(configs) {
+				var signalCtx = angular.element('#signalChart').get(0).getContext('2d');
+				var batteryCtx = angular.element('#batteryChart').get(0).getContext('2d');
+				var tempCtx = angular.element('#tempChart').get(0).getContext('2d');
+				var extTempCtx = angular.element('#extTempChart').get(0).getContext('2d');
+				var disconCtx = angular.element('#disconChart').get(0).getContext('2d');
+				var imagesCtx = angular.element('#imagesChart').get(0).getContext('2d');
+				new Chart(signalCtx, configs.signalConfig);
+				new Chart(batteryCtx, configs.batteryConfig);
+				new Chart(tempCtx, configs.tempConfig);
+				new Chart(extTempCtx, configs.extTempConfig);
+				new Chart(disconCtx, configs.disconConfig);
+				new Chart(imagesCtx, configs.imagesConfig);
+			};
 
-				var data =  {
-					labels: labels,
-					datasets: [{
-						label: "Signal Strength",
-						data: [4,5,6,8,19,29,8,19],
-						lineTension: 0
-					}]
-				};
-
-				var chart = new Chart(ctx, {
+			$scope.createConfig = function(points, title){
+				var config = {
 					type: 'line',
-					data: data,
+					data: {
+						datasets: [
+							{
+								data: points,
+								fill: false
+							}
+						]
+					},
 					options: {
+						responsive: true,
+						title: {
+							display: true,
+							text: title
+						},
 						scales: {
-							xAxes: [
-								{
-									type: 'time',
-									time: {
-										// format: timeFormat,
-										// displayFormats: {
-										// 	day: 'll',
-										// },
-										tooltipFormat: 'll HH:mm',
-										max: moment().add(30, 'd'),
-										min: moment().subtract(10, 'd'),
-										// unit: 'week'
-										unitStepSize: 2
-									},
-									scaleLabel: {
-										display: true,
-										labelString: 'Date'
-									}
+							xAxes: [{
+								type: 'time',
+								display: true,
+								scaleLabel: {
+									display: true,
+									labelString: 'Date'
 								}
-							],
-							yAxes: [
-								{
-									scaleLabel: {
-										display: true,
-										labelString: 'value'
-									}
+							}],
+							yAxes: [{
+								display: true,
+								scaleLabel: {
+									display: true
 								}
-							]
+							}]
 						}
 					}
+				};
+				return config;
+			};
+
+			$scope.createPoints = function(data1, data2){
+				var points = [];
+				angular.forEach(data1, function(data, index){
+					points.push({x: data1[index], y: data2[index]});
+				});
+				return points;
+			};
+
+			$scope.drawCharts = function(from, to){
+				devicesService.getDeviceStatus({params: {id: device.Uuid, from: from, to: to}})
+					.then(function(rs){
+						console.log('设备的状态信息:'+ rs.data)
+						var deviceStatus = rs.data;
+						var signalData = [];
+						var batteryData = [];
+						var temperatureData = [];
+						var extTempData = [];
+						var disconData = [];
+						var imagesData = [];
+						var transferData = [];
+						var xAxes = [];
+
+						angular.forEach(deviceStatus, function(status){
+							signalData.push(status.Status.RSSI);
+							batteryData.push(status.Status.Battery);
+							temperatureData.push(status.Status.Temperature);
+							extTempData.push(status.Status.ExternalTempSensor);
+							disconData.push(status.Status.Disconnects);
+							imagesData.push(status.Status.Images);
+							xAxes.push(moment({y: status.Date[0], M: status.Date[1], d: status.Date[2], h: status.Date[3],
+								m: status.Date[4], s: status.Date[5]}).toDate());
+						});
+
+						var signalDataPoints = $scope.createPoints(xAxes, signalData);
+						var batteryDataPoints = $scope.createPoints(xAxes, batteryData);
+						var tempDataPoints = $scope.createPoints(xAxes, temperatureData);
+						var extTempDataPoints = $scope.createPoints(xAxes, extTempData);
+						var disconDataPoints = $scope.createPoints(xAxes, disconData);
+						var imagesDataPoints = $scope.createPoints(xAxes, imagesData);
+
+						var signalConfig = $scope.createConfig(signalDataPoints, 'Signal Strength');
+						var batteryConfig = $scope.createConfig(batteryDataPoints, 'Battery');
+						var tempConfig = $scope.createConfig(tempDataPoints, 'Temperature');
+						var extTempConfig = $scope.createConfig(extTempDataPoints, 'External Temperature');
+						var disconConfig = $scope.createConfig(disconDataPoints, 'Disconnects');
+						var imagesConfig = $scope.createConfig(imagesDataPoints, 'Images');
+
+						var configs = {
+							signalConfig: signalConfig,
+							batteryConfig: batteryConfig,
+							tempConfig: tempConfig,
+							extTempConfig: extTempConfig,
+							disconConfig: disconConfig,
+							imagesConfig: imagesConfig
+						};
+
+						return configs;
+					}).then(function(configs){
+					$scope.drawChart(configs);
 				});
 			};
 
+			$scope.drawCharts(null, null);
 
 		};
 	}];
-
-})
+});
