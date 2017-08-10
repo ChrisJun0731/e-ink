@@ -6,6 +6,7 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 		devicesService.getDevices().then(function(rs){
 			$scope.devices = rs.data;
 		});
+
 		$scope.openDeviceModal = function(size, index){
 			$uibModal.open({
 				templateUrl: 'deviceModal.html',
@@ -18,6 +19,7 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 				}
 			});
 		};
+
 		var deviceModalController = function($scope, device){
 
 			//Status&Settings
@@ -55,12 +57,12 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 				var extTempCtx = angular.element('#extTempChart').get(0).getContext('2d');
 				var disconCtx = angular.element('#disconChart').get(0).getContext('2d');
 				var imagesCtx = angular.element('#imagesChart').get(0).getContext('2d');
-				new Chart(signalCtx, configs.signalConfig);
-				new Chart(batteryCtx, configs.batteryConfig);
-				new Chart(tempCtx, configs.tempConfig);
-				new Chart(extTempCtx, configs.extTempConfig);
-				new Chart(disconCtx, configs.disconConfig);
-				new Chart(imagesCtx, configs.imagesConfig);
+				var signalChart = new Chart(signalCtx, configs.signalConfig);
+				var batteryChart = new Chart(batteryCtx, configs.batteryConfig);
+				var tempChart = new Chart(tempCtx, configs.tempConfig);
+				var extTempChart = new Chart(extTempCtx, configs.extTempConfig);
+				var disconChart = new Chart(disconCtx, configs.disconConfig);
+				var imagesChart = new Chart(imagesCtx, configs.imagesConfig);
 			};
 
 			$scope.createConfig = function(points, title){
@@ -70,7 +72,8 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 						datasets: [
 							{
 								data: points,
-								fill: false
+								fill: false,
+								borderColor: '#002929'
 							}
 						]
 					},
@@ -78,7 +81,9 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 						responsive: true,
 						title: {
 							display: true,
-							text: title
+							text: title,
+							fontSize: 20,
+							padding: 20
 						},
 						scales: {
 							xAxes: [{
@@ -88,13 +93,10 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 									display: true,
 									labelString: 'Date'
 								}
-							}],
-							yAxes: [{
-								display: true,
-								scaleLabel: {
-									display: true
-								}
 							}]
+						},
+						legend: {
+							display: false
 						}
 					}
 				};
@@ -109,7 +111,42 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 				return points;
 			};
 
-			$scope.drawCharts = function(from, to){
+			$scope.drawCharts = function(period){
+				var from = {};
+				var to = {};
+				switch(period){
+					case 'Today': {
+						from = moment().startOf('day').unix();
+						to = moment().endOf('day').unix();
+					};
+					break;
+					case 'Yesterday': {
+						from = moment().subtract(1, 'd').startOf('day').unix();
+						to = moment().subtract(1, 'd').endOf('day').unix();
+					};
+					break;
+					case 'Last 7 days': {
+						from = moment().subtract(7, 'd').startOf('day').unix();
+						to = moment().endOf('day').unix();
+					};
+					break;
+					case 'Last 30 days': {
+						from = moment().subtract(30, 'd').startOf('day').unix();
+						to = moment().endOf('day').unix();
+					};
+					break;
+					case 'This Month': {
+						from = moment().startOf('month').unix();
+						to = moment().endOf('month').unix();
+					};
+					break;
+					case 'Last Month': {
+						from = moment().subtract(1, 'month').startOf('month').unix();
+						to = moment().subtract(1, 'month').endOf('month').unix();
+					};
+					break;
+					default: ;
+				}
 				devicesService.getDeviceStatus({params: {id: device.Uuid, from: from, to: to}})
 					.then(function(rs){
 						console.log('设备的状态信息:'+ rs.data)
@@ -163,7 +200,9 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 				});
 			};
 
-			$scope.drawCharts(null, null);
+			$scope.periods = ['Today', 'Yesterday', 'Last 7 days', 'Last 30 days', 'This Month', 'Last Month', 'Custom Range'];
+			$scope.period = 'Last 30 days';
+			$scope.drawCharts($scope.period);
 
 		};
 	}];

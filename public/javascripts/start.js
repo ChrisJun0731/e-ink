@@ -52,5 +52,16 @@ define(['angular', 'angularAMD', 'angular-ui-router', 'xeditable', 'ui-bootstrap
 				}
 			})
 	});
+	app.directive('errSrc', function(){
+		return {
+			link: function(scope, ele, attr){
+				ele.bind('error', function(){
+					if(attr.src != attr.errSrc){
+						attr.$set('src', attr.errSrc);
+					}
+				});
+			}
+		};
+	});
 	return angularAMD.bootstrap(app);
 });

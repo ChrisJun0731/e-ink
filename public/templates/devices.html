@@ -1,170 +1,175 @@
 <section>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name/UUID</th>
-        <th>Battery</th>
-        <th>State</th>
-        <th>Signal Strength</th>
-        <th>Connectivity</th>
-        <th>Firmware</th>
-        <th>HW.reversion</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="device in devices">
-        <td>{{device.Uuid}}</td>
-        <td>{{device.Status.Battery+"%"}}</td>
-        <td>{{device.State}}</td>
-        <td>{{"-"+ device.Status.RSSI}}</td>
-        <td>{{device.connectivity}}</td>
-        <td>{{device.Status.FirmwareMajor+"."+device.Status.FirmwareMinor+"."+device.Status.FirmwareRevision}}</td>
-        <td>{{device.Options.Revision}}</td>
-        <td><button type="button" class="btn btn-info btn-sm" ng-click="openDeviceModal('lg', $index)">Edit</button></td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="btn-group">
-    <button class="btn btn-danger pull-right">Remove device</button>
-    <button class="btn btn-danger pull-right">Reboot device</button>
-  </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name/UUID</th>
+            <th>Battery</th>
+            <th>State</th>
+            <th>Signal Strength</th>
+            <th>Connectivity</th>
+            <th>Firmware</th>
+            <th>HW.reversion</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="device in devices">
+            <td>{{device.Uuid}}</td>
+            <td>{{device.Status.Battery+"%"}}</td>
+            <td>{{device.State}}</td>
+            <td>{{"-"+ device.Status.RSSI}}</td>
+            <td>{{device.connectivity}}</td>
+            <td>{{device.Status.FirmwareMajor+"."+device.Status.FirmwareMinor+"."+device.Status.FirmwareRevision}}</td>
+            <td>{{device.Options.Revision}}</td>
+            <td><button type="button" class="btn btn-info btn-sm" ng-click="openDeviceModal('lg', $index)">Edit</button></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-danger" ng-click="deleteDevice(uuidArray)">Remove device</button>
+        </div>
+        <div class="col-md-10 btn-group">
+            <button class="btn btn-danger" ng-click="rebootDevice(uuidArray)">Reboot device</button>
+            <button class="btn btn-danger" ng-click="restartSession(uuidArray)">Restart Session</button>
+            <button class="btn btn-danger" ng-click="clearWebCache(uuidArray)">Clear Web cache</button>
+        </div>
+    </div>
 </section>
 <script type="text/ng-template" id="deviceModal.html">
-  <div class="modal-header">
-    <h3 class="modal-title" id="modal-title">{{device.Uuid}}</h3>
-  </div>
-  <div class="modal-body">
-    <uib-tabset active="0">
-      <uib-tab heading="Status&Settings" index="0">
-        <table class="table">
-          <caption>Status {{device.State}}</caption>
-          <tr>
-            <td class="col-sm-4">Name</td>
-            <td class="col-sm-8">{{device.Name}}</td>
-          </tr>
-          <tr>
-            <td class="col-sm-4">Battery</td>
-            <td class="col-sm-8">{{device.Status.Battery + "%"}}</td>
-          </tr>
-          <tr>
-            <td class="col-sm-4">Signal Strength</td>
-            <td class="col-sm-8">{{"-" + device.Status.RSSI}}</td>
-          </tr>
-          <tr>
-            <td class="col-sm-4">Temperature</td>
-            <td class="col-sm-8">{{device.Status.Temperature}}</td>
-          </tr>
-          <tr>
-            <td class="col-sm-4">Hardware Revision</td>
-            <td class="col-sm-8">{{device.Options.Revision}}</td>
-          </tr>
-          <tr>
-            <td class="col-sm-4">Firmware Revision</td>
-            <td class="col-sm-8">
-              {{device.Status.FirmwareMajor+"."+device.Status.FirmwareMinor+"."+device.Status.FirmwareRevision}}
-            </td>
-          </tr>
-        </table>
-        <table class="table">
-          <thead>
-            <caption>Sleep</caption>
-          </thead>
-          <tr>
-            <td class="col-sm-4">Period</td>
-            <td class="col-sm-8"></td>
-          </tr>
-        </table>
-        <table class="table">
-          <caption>Device Handling</caption>
-          <tr>
-            <td class="col-sm-4">Automatic update to latest firmware</td>
-            <td class="col-sm-8"></td>
-          </tr>
-          <tr>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">{{device.Uuid}}</h3>
+    </div>
+    <div class="modal-body">
+        <uib-tabset active="0">
+            <uib-tab heading="Status&Settings" index="0">
+                <table class="table">
+                    <caption>Status {{device.State}}</caption>
+                    <tr>
+                        <td class="col-sm-4">Name</td>
+                        <td class="col-sm-8">{{device.Name}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-4">Battery</td>
+                        <td class="col-sm-8">{{device.Status.Battery + "%"}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-4">Signal Strength</td>
+                        <td class="col-sm-8">{{"-" + device.Status.RSSI}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-4">Temperature</td>
+                        <td class="col-sm-8">{{device.Status.Temperature}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-4">Hardware Revision</td>
+                        <td class="col-sm-8">{{device.Options.Revision}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-4">Firmware Revision</td>
+                        <td class="col-sm-8">
+                            {{device.Status.FirmwareMajor+"."+device.Status.FirmwareMinor+"."+device.Status.FirmwareRevision}}
+                        </td>
+                    </tr>
+                </table>
+                <table class="table">
+                    <thead>
+                    <caption>Sleep</caption>
+                    </thead>
+                    <tr>
+                        <td class="col-sm-4">Period</td>
+                        <td class="col-sm-8"></td>
+                    </tr>
+                </table>
+                <table class="table">
+                    <caption>Device Handling</caption>
+                    <tr>
+                        <td class="col-sm-4">Automatic update to latest firmware</td>
+                        <td class="col-sm-8"></td>
+                    </tr>
+                    <tr>
 
-            <td class="col-sm-4">Automatic update to latest bootloader</td>
-            <td class="col-sm-8"></td>
-          </tr>
-        </table>
-        <table class="table">
-          <caption>Session</caption>
-          <tr>
-            <td class="col-sm-4">Backend</td>
-            <td class="col-sm-8">
-              <select ng-model="session.Backend.Name" ng-options="backend.value as backend.label for backend in backends">
-              </select>
-            </td>
-          </tr>
-          <tr ng-show="session.Backend.Name=='HTML'">
-            <td class="col-sm-4">Application</td>
-            <td class="col-sm-8">
-              <select ng-model="session.Backend.Fields.url" ng-options="app.Url as app.Name for app in apps"></select>
-            </td>
-          </tr>
-          <tr ng-show="session.Backend.Name=='HTML'">
-            <td class="col-sm-4">Automatic page reload in seconds (0=disabled)</td>
-            <td class="col-sm-8"></td>
-          </tr>
-          <tr>
-            <td class="col-sm-4">Default dithering</td>
-            <td class="col-sm-8">
-              <select ng-model="session.Options.DefaultDithering" ng-options="dithering for dithering in ditherings"></select>
-            </td>
-          </tr>
-          <tr>
-            <td class="col-sm-4">Default bit depth</td>
-            <td class="col-sm-8">
-              <select ng-model="session.Options.DefaultEncoding" ng-options="encoding for encoding in encodings"></select>
-            </td>
-          </tr>
-        </table>
-        <table class="table">
-          <thead>
-            <caption>Displays</caption>
-          </thead>
-          <tr>
-            <td class="col-sm-4">Display type</td>
-            <td class="col-sm-8">{{device.Options.DisplayType}}</td>
-          </tr>
-          <tr>
-            <td class="col-sm-4">Display rotation</td>
-            <td class="col-sm-8">{{device.Displays[0].Rotation}}</td>
-          </tr>
-        </table>
-      </uib-tab>
-      <uib-tab heading="Device Configuration" index="1">
-        Device Configuration
-      </uib-tab>
-      <uib-tab heading="Live View" index="2">
-        <div>
-          <div class="row">
-            <div class="col-sm-6">
-              <h6 class="caption text-center">device</h6>
-              <div class="thumbnail">
-                <img ng-src="{{clientImgPath}}"/>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <h6 class="caption text-center">server</h6>
-              <div class="thumbnail">
-                <img ng-src="{{serverImgPath}}"/>
-              </div>
-            </div>
-          </div>
-        </div>
-      </uib-tab>
-      <uib-tab heading="Charts" index="3">
-        <canvas id="signalChart" width="400px" height="150px"></canvas>
-        <canvas id="batteryChart" width="400px" height="150px"></canvas>
-        <canvas id="tempChart" width="400px" height="150px"></canvas>
-        <canvas id="extTempChart" width="400px" height="150px"></canvas>
-        <canvas id="disconChart" width="400px" height="150px"></canvas>
-        <canvas id="imagesChart" width="400px" height="150px"></canvas>
-      </uib-tab>
-      <uib-tab heading="Events" index="4">
-        Events
-      </uib-tab>
-    </uib-tabset>
-  </div>
+                        <td class="col-sm-4">Automatic update to latest bootloader</td>
+                        <td class="col-sm-8"></td>
+                    </tr>
+                </table>
+                <table class="table">
+                    <caption>Session</caption>
+                    <tr>
+                        <td class="col-sm-4">Backend</td>
+                        <td class="col-sm-8">
+                            <select ng-model="session.Backend.Name" ng-options="backend.value as backend.label for backend in backends">
+                            </select>
+                        </td>
+                    </tr>
+                    <tr ng-show="session.Backend.Name=='HTML'">
+                        <td class="col-sm-4">Application</td>
+                        <td class="col-sm-8">
+                            <select ng-model="session.Backend.Fields.url" ng-options="app.Url as app.Name for app in apps"></select>
+                        </td>
+                    </tr>
+                    <tr ng-show="session.Backend.Name=='HTML'">
+                        <td class="col-sm-4">Automatic page reload in seconds (0=disabled)</td>
+                        <td class="col-sm-8"></td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-4">Default dithering</td>
+                        <td class="col-sm-8">
+                            <select ng-model="session.Options.DefaultDithering" ng-options="dithering for dithering in ditherings"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-4">Default bit depth</td>
+                        <td class="col-sm-8">
+                            <select ng-model="session.Options.DefaultEncoding" ng-options="encoding for encoding in encodings"></select>
+                        </td>
+                    </tr>
+                </table>
+                <table class="table">
+                    <thead>
+                    <caption>Displays</caption>
+                    </thead>
+                    <tr>
+                        <td class="col-sm-4">Display type</td>
+                        <td class="col-sm-8">{{device.Options.DisplayType}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-4">Display rotation</td>
+                        <td class="col-sm-8">{{device.Displays[0].Rotation}}</td>
+                    </tr>
+                </table>
+            </uib-tab>
+            <uib-tab heading="Device Configuration" index="1">
+                Device Configuration
+            </uib-tab>
+            <uib-tab heading="Live View" index="2">
+                <div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h6 class="caption text-center">device</h6>
+                            <div class="thumbnail">
+                                <img ng-src="{{clientImgPath}}" err-src="images/no-image.png"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <h6 class="caption text-center">server</h6>
+                            <div class="thumbnail">
+                                <img ng-src="{{serverImgPath}}" err-src="images/no-image.png"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab heading="Charts" index="3">
+                <select ng-model="period" ng-options="period for period in periods" ng-change="drawCharts(period)"></select>
+                <canvas id="signalChart" width="400px" height="150px"></canvas>
+                <canvas id="batteryChart" width="400px" height="150px"></canvas>
+                <canvas id="tempChart" width="400px" height="150px"></canvas>
+                <canvas id="extTempChart" width="400px" height="150px"></canvas>
+                <canvas id="disconChart" width="400px" height="150px"></canvas>
+                <canvas id="imagesChart" width="400px" height="150px"></canvas>
+                <canvas id="transferChart" width="400px" height="150px"></canvas>
+            </uib-tab>
+        </uib-tabset>
+    </div>
 </script>

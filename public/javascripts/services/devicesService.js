@@ -27,6 +27,30 @@ define(['app'], function(app){
 					return response;
 				});
 				return promise;
+			},
+			deleteDevice: function(config){
+				var promise = $http.delete('/api/device/', config).then(function(response){
+					return response;
+				});
+				return promise;
+			},
+			rebootDevice: function(config){
+				var promise = $http.post('/api/device/reboot/', config).then(function(response){
+					return response;
+				});
+				return promise;
+			},
+			restartSession: function(config){
+				var promise = $http.post('/api/session/restart/', config).then(function(response){
+					return response;
+				});
+				return promise;
+			},
+			clearWebCache: function(config){
+				var promise = $http.post('/api/session/webkit-clear-cache/', config).then(function(response){
+					return response;
+				});
+				return promise;
 			}
 		};
 		return devicesService;
