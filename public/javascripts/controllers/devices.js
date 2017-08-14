@@ -7,6 +7,30 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 			$scope.devices = rs.data;
 		});
 
+
+		$scope.selectAllDevice = function(){
+			if($scope.all_flag == false){
+				angular.forEach($scope.devices, function(device){
+					device.selected = true;
+				});
+				$scope.all_flag = true;
+			}
+			else{
+				angular.forEach($scope.devices, function(device){
+					device.selected = false;
+				});
+				$scope.all_flag = false;
+			}
+		};
+
+		$scope.rebootDevice = function(){
+			var uuidArray = [];
+			angular.forEach($scope.devices, function(device){
+				uuidArray.push(device.Uuid);
+			});
+			devicesService.rebootDevice(uuidArray);
+		}
+
 		$scope.openDeviceModal = function(size, index){
 			$uibModal.open({
 				templateUrl: 'deviceModal.html',

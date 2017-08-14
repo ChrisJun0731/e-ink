@@ -11,6 +11,7 @@ var statusController = require('./routes/controller/statusController');
 var devicesController = require('./routes/controller/devicesController');
 var usersController = require('./routes/controller/usersController');
 var appsController = require('./routes/controller/appsController');
+var settingsController = require('./routes/controller/settingsController');
 
 var app = express();
 
@@ -32,23 +33,24 @@ app.use('/', statusController);
 app.use('/', devicesController);
 app.use('/', usersController);
 app.use('/', appsController);
+app.use('/', settingsController);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+	var err = new Error('Not Found');
+	err.status = 404;
+	next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+	// set locals, only providing error in development
+	res.locals.message = err.message;
+	res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+	// render the error page
+	res.status(err.status || 500);
+	res.render('error');
 });
 
 app.listen(3000);

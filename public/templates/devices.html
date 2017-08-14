@@ -2,6 +2,7 @@
     <table class="table">
         <thead>
         <tr>
+            <th><input type="checkbox" ng-click="selectAllDevice()" ng-init="all_flag=false">&nbsp;#</th>
             <th>Name/UUID</th>
             <th>Battery</th>
             <th>State</th>
@@ -14,6 +15,9 @@
         </thead>
         <tbody>
         <tr ng-repeat="device in devices">
+            <td>
+                <input type="checkbox" ng-true-value="true" ng-false-value="false" ng-model="device.selected">&nbsp;{{$index+1}}
+            </td>
             <td>{{device.Uuid}}</td>
             <td>{{device.Status.Battery+"%"}}</td>
             <td>{{device.State}}</td>

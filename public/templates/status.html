@@ -3,7 +3,9 @@
     <table class="table">
       <tr>
         <td>Visionect Software Suit Version</td>
-        <td>{{}}</td>
+      </tr>
+      <tr>
+        <td>{{status.Version}}</td>
       </tr>
       <tr>
         <td>Online Devices </td>
@@ -21,7 +23,13 @@
         <td>Sessions active/maximum</td>
       </tr>
       <tr>
-        <td>{{}}/{{}}</td>
+        <td>{{okulars.Sessions}}/{{okulars.MaxSessions}}</td>
+      </tr>
+      <tr>
+        <td>Server load {{prop}}</td>
+      </tr>
+      <tr>
+        <td>Average: {{okulars.AvgLoad}}, Deviation: {{okulars.StdDeviation}}</td>
       </tr>
     </table>
   </div>

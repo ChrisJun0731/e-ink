@@ -56,7 +56,15 @@ var proxy = function(request, response){
     this.forwardPostRequest = function(){
         var headers = this.createHeader(request);
         var clientRequest = this.createRequest(request, headers);
-        clientRequest.write(JSON.stringify(request.body));
+        if(Array.isArray(request.body)){
+			var data = request.body;
+			// ["1b003400-0d51-3333-3539-373500000000","32005300-1351-3433-3738-373100000000","32004100-1351-3433-3738-373100000000","2e003500-1351-3433-3738-373100000000"]
+			// data = JSON.stringify(["1b003400-0d51-3333-3539-373500000000","32005300-1351-3433-3738-373100000000"]);
+			clientRequest.write(data);
+		}
+		else{
+			clientRequest.write(JSON.stringify(request.body));
+		}
         clientRequest.end();
 		clientRequest.on('response', function(clientResponse){
 		    var data = '';
@@ -81,10 +89,11 @@ var proxy = function(request, response){
         var date = Date().split('(')[0].slice(0,-1);
         var method = request.method;
         var path = this.createPath(request);
+        var type = 'application/json';
         var auth = crypto.createHmac('sha256', apiSecret)
-            .update(util.format('%s\n%s\n%s\n%s\n%s', method, '', '', date, path))
+            .update(util.format('%s\n%s\n%s\n%s\n%s', method, '', type, date, path))
             .digest('base64');
-		var headers = {};
+		var headers = {"Content-Type": "application/json"};
         headers.Date = date;
         headers.Authorization = util.format('%s:%s', apiKey, auth);
         return headers;

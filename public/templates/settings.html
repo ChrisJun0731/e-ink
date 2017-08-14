@@ -3,10 +3,16 @@
     <caption>Global</caption>
     <tr>
       <td class="col-sm-4">Development Name</td>
-      <td class="col-sm-8"><input type="text"></td>
+      <td class="col-sm-8"><input type="text" ng-model="config.Global.DeploymentName"></td>
     </tr>
     <tr>
       <td class="col-sm-4">Development Key</td>
+      <td class="col-sm-8">
+        <input type="text" ng-model="config.Global.DeploymentKey">
+      </td>
+    </tr>
+    <tr>
+      <td class="col-sm-4">Features</td>
       <td class="col-sm-8">
         <input type="checkbox" name="features">Sleep Manager
         <input type="checkbox" name="features">External Battery
@@ -23,23 +29,25 @@
     <tr>
       <td class="col-sm-4">Default Backend</td>
       <td class="col-sm-8">
-        <select name="backend"></select>
+        <select name="backend" ng-options="backend for backend in backends" ng-model="config.Engine.DefaultBackend"></select>
       </td>
     </tr>
     <tr>
       <td class="col-sm-4">Max Sessions</td>
       <td class="col-sm-8">
-        <input type="text" name="max_sessions"/>
+        <input type="text" name="max_sessions" ng-model="config.Engine.MaxSessions">
       </td>
     </tr>
     <tr>
-      <td>Image Cache Size</td>
-      <td><input type="text" name="image_cache_size"/></td>
+      <td class="col-sm-4">Image Cache Size</td>
+      <td class="col-sm-8">
+        <input type="text" name="image_cache_size" ng-model="config.Engine.ImageCacheSize">
+      </td>
     </tr>
     <tr>
       <td class="col-sm-4">Session Cleanup Threshold(in minutes)</td>
       <td class="col-sm-8">
-        <input type="text"/>
+        <input type="text" ng-model="config.Engine.IdleThreshold">
       </td>
     </tr>
     <tr>
@@ -60,43 +68,61 @@
   <table class="table">
     <caption>HTML Backend</caption>
     <tr>
-      <td class="col-sm-4">Default Url</td>
-      <td class="col-sm-8"></td>
+      <td class="col-sm-4">Default URL</td>
+      <td class="col-sm-8">
+        <input type="text" ng-model="config.Engine.Backend.HTML.DefaultFields.url">
+      </td>
     </tr>
     <tr>
       <td class="col-sm-4">Automatic page reload in seconds(0 = disabled)</td>
-      <td class="col-sm-8"></td>
+      <td class="col-sm-8">
+        <input type="text" ng-model="config.Engine.Backend.HTML.DefaultFields.ReloadTimeout">
+      </td>
     </tr>
     <tr>
       <td class="col-sm-4">Web Session Memory Limit</td>
-      <td class="col-sm-8"></td>
+      <td class="col-sm-8">
+        <input type="text" ng-model="config.Engine.Backend.HTML.WebkitSessionMemoryLimit">
+      </td>
     </tr>
     <tr>
       <td class="col-sm-4">User Agent</td>
-      <td class="col-sm-8"></td>
+      <td class="col-sm-8">
+        <input type="text" ng-model="config.Engine.Backend.HTML.WebkitUserAgent">
+      </td>
     </tr>
     <tr>
       <td class="col-sm-4">Render Timeout</td>
-      <td class="col-sm-8"></td>
+      <td class="col-sm-8">
+        <input type="text" ng-model="config.Engine.Backend.HTML.RenderTimeout">
+      </td>
     </tr>
     <tr>
       <td class="col-sm-4">Enable Font Antialias</td>
-      <td class="col-sm-8"></td>
+      <td class="col-sm-8">
+        <select ng-options="" ng-model="config.Engine.Backend.HTML.FontAntialias"></select>
+      </td>
     </tr>
     <tr>
       <td class="col-sm-4">Enable Page Caching</td>
-      <td class="col-sm-8"></td>
+      <td class="col-sm-8">
+        <select ng-options="" ng-model="config.Engine.Backend.HTML.PageCaching"></select>
+      </td>
     </tr>
   </table>
   <table class="table">
     <caption>Default Device Settings</caption>
     <tr>
       <td class="col-sm-4">Ignore Input If Device Not in Sync</td>
-      <td class="col-sm-8"></td>
+      <td class="col-sm-8">
+        <select ng-options="" ng-model="config.Engine.IgnoreInputIfDeviceNotSync"></select>
+      </td>
     </tr>
     <tr>
       <td class="col-sm-4">Big Depth</td>
-      <td class="col-sm-8"></td>
+      <td class="col-sm-8">
+        <select ng-options="" ng-model="config.Engine.Encoding"></select>
+      </td>
     </tr>
     <tr>
       <td class="col-sm-4">Display Rotation</td>
@@ -104,36 +130,58 @@
     </tr>
     <tr>
       <td class="col-sm-4">Dithering</td>
-      <td class="col-sm-8"></td>
+      <td class="col-sm-8">
+        <select ng-options="" ng-model="config.Engine.DitheringMethod"></select>
+      </td>
     </tr>
     <tr>
       <td class="col-sm-4">Force Rectangle Support</td>
-      <td class="col-sm-8"></td>
+      <td class="col-sm-8">
+        <select ng-options="" ng-model="config.Engine.ForceRectangleSupport"></select>
+      </td>
     </tr>
     <tr>
       <td class="col-sm-4">Force group synchronization</td>
-      <td class="col-sm-8"></td>
+      <td class="col-sm-8">
+        <select ng-options="" ng-model="config.Engine.ForceSyncGroup"></select>
+      </td>
     </tr>
     <tr>
       <td class="col-sm-4">Synchronize groups only all of its devices are present</td>
-      <td class="col-sm-8"></td>
+      <td class="col-sm-8">
+        <select ng-options="" ng-model="config.Engine.GroupSyncOnlyIfAllDevicesArePresent"></select>
+      </td>
     </tr>
     <tr>
       <td class="col-sm-4">Automatic Firmware Update</td>
-      <td class="col-sm-8"></td>
+      <td class="col-sm-8">
+        <select ng-options="" ng-model="config.Global.AutoUpdater"></select>
+      </td>
     </tr>
     <tr>
       <td class="col-sm-4">Automatic Bootloader Upgrade</td>
-      <td class="col-sm-8"></td>
+      <td class="col-sm-8">
+        <select ng-options="" ng-model="config.Global.AutoBootUpdater"></select>
+      </td>
     </tr>
     <tr>
       <td class="col-sm-4">Device state polling</td>
-      <td class="col-sm-8"></td>
+      <td class="col-sm-8">
+        <input type="text" ng-model="config.Global.DeviceStatePolling">
+      </td>
     </tr>
   </table>
   <table class="table">
     <caption>Firmwares</caption>
     <td class="col-sm-4">Firmware Repository</td>
-    <td class="col-sm-8"></td>
+    <td class="col-sm-8">
+      <input type="text" ng-model="config.FirmwareRepository[0]">
+    </td>
   </table>
+  <div>
+    <button class="btn btn-danger">Restart Services</button>
+    <button class="btn btn-info">Download Logs</button>
+    <button class="btn btn-cancel">Cancel</button>
+    <button class="btn btn-primary">Save</button>
+  </div>
 </section>

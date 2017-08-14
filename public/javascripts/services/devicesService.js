@@ -34,20 +34,20 @@ define(['app'], function(app){
 				});
 				return promise;
 			},
-			rebootDevice: function(config){
-				var promise = $http.post('/api/device/reboot/', config).then(function(response){
+			rebootDevice: function(data){
+				var promise = $http.post('/api/device/reboot/', data).then(function(response){
 					return response;
 				});
 				return promise;
 			},
-			restartSession: function(config){
-				var promise = $http.post('/api/session/restart/', config).then(function(response){
+			restartSession: function(data){
+				var promise = $http.post('/api/session/restart/', data).then(function(response){
 					return response;
 				});
 				return promise;
 			},
-			clearWebCache: function(config){
-				var promise = $http.post('/api/session/webkit-clear-cache/', config).then(function(response){
+			clearWebCache: function(data){
+				var promise = $http.post('/api/session/webkit-clear-cache/', data).then(function(response){
 					return response;
 				});
 				return promise;
