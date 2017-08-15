@@ -9,6 +9,24 @@ define(['app'], function(app){
 					return response;
 				});
 				return promise;
+			},
+			restartServices: function(){
+				var promise = $http.get('/api/srv/restart').then(function(response){
+					return response;
+				});
+				return promise;
+			},
+			save: function(data){
+				var promise = $http.put('/api/config/', data).then(function(response){
+					return response;
+				});
+				return promise;
+			},
+			downloadLogs: function(){
+				var promise = $http.get('/api/logs/').then(function(response){
+					return response;
+				});
+				return promise;
 			}
 		};
 		return settingsService;

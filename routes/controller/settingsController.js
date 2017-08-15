@@ -10,4 +10,19 @@ router.get('/api/config/', function(req, res){
 	proxy.forwardGetRequest();
 });
 
+router.put('/api/config/', function(req, res){
+	var proxy = new Proxy(req, res);
+	proxy.forwardPutRequest();
+});
+
+router.get('/api/srv/restart/', function(req, res){
+	var proxy = new Proxy(req, res);
+	proxy.forwardGetRequest();
+});
+
+router.get('/api/logs/', function(req, res){
+	var proxy = new Proxy(req, res);
+	proxy.forwardGetRequest();
+});
+
 module.exports = router;

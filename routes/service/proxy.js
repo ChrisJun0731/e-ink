@@ -31,7 +31,7 @@ var proxy = function(request, response){
             clientResponse.on('end', function(){
                 response.send(data);
             });
-        })
+        });
     };
 
     this.forwardDelRequest = function(){
