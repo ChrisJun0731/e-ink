@@ -28,26 +28,44 @@ define(['app'], function(app){
 				});
 				return promise;
 			},
-			deleteDevice: function(config){
+			deleteDevices: function(config){
 				var promise = $http.delete('/api/device/', config).then(function(response){
 					return response;
 				});
 				return promise;
 			},
-			rebootDevice: function(data){
-				var promise = $http.post('/api/device/reboot/', data).then(function(response){
+			rebootDevices: function(data){
+				var promise = $http.post('/api/device/reboot', data).then(function(response){
 					return response;
 				});
 				return promise;
 			},
-			restartSession: function(data){
-				var promise = $http.post('/api/session/restart/', data).then(function(response){
+			restartSessions: function(data){
+				var promise = $http.post('/api/session/restart', data).then(function(response){
 					return response;
 				});
 				return promise;
 			},
-			clearWebCache: function(data){
-				var promise = $http.post('/api/session/webkit-clear-cache/', data).then(function(response){
+			clearWebCaches: function(data){
+				var promise = $http.post('/api/session/webkit-clear-cache', data).then(function(response){
+					return response;
+				});
+				return promise;
+			},
+			deleteDevices: function(config){
+				var promise = $http.delete('/api/device/', config).then(function(response){
+					return response;
+				});
+				return promise;
+			},
+			saveDevice: function(data, config){
+				var promise = $http.put('/api/device/', data, config).then(function(response){
+					return response;
+				});
+				return promise;
+			},
+			saveSession: function(data, config){
+				var promise = $http.put('/api/session/', data, config).then(function(response){
 					return response;
 				});
 				return promise;

@@ -35,6 +35,31 @@ router.get('/api/devicestatus/', function(req, res){
 router.post('/api/device/reboot/', function(req, res){
 	var proxy = new Proxy(req, res);
 	proxy.forwardPostRequest();
-})
+});
+
+router.post('/api/session/restart/', function(req, res){
+	var proxy = new Proxy(req, res);
+	proxy.forwardPostRequest();
+});
+
+router.post('/api/session/webkit-clear-cache/', function(req, res){
+	var proxy = new Proxy(req, res);
+	proxy.forwardPostRequest();
+});
+
+router.delete('/api/device/', function(req, res){
+	var proxy = new Proxy(req, res);
+	proxy.forwardDelRequest();
+});
+
+router.put('/api/device/', function(req, res){
+	var proxy = new Proxy(req, res);
+	proxy.forwardPutRequest();
+});
+
+router.put('/api/session/', function(req, res){
+	var proxy = new Proxy(req, res);
+	proxy.forwardPutRequest();
+});
 
 module.exports = router;

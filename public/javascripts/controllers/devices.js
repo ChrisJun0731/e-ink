@@ -23,13 +23,34 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 			}
 		};
 
-		$scope.rebootDevice = function(){
+		$scope.rebootDevices = function(){
 			var uuidArray = [];
 			angular.forEach($scope.devices, function(device){
 				uuidArray.push(device.Uuid);
 			});
-			devicesService.rebootDevice(uuidArray);
-		}
+			devicesService.rebootDevices(uuidArray);
+		};
+		$scope.restartSessions = function(){
+			var uuidArray = [];
+			angular.forEach($scope.devices, function(device){
+				uuidArray.push(device.Uuid);
+			});
+			devicesService.restartSessions(uuidArray);
+		};
+		$scope.clearWebCaches = function(){
+			var uuidArray = [];
+			angular.forEach($scope.devices, function(device){
+				uuidArray.push(device.Uuid);
+			});
+			devicesService.clearWebCaches(uuidArray);
+		};
+		$scope.deleteDevices = function(){
+			var uuidArray = [];
+			angular.forEach($scope.devices, function(device){
+				uuidArray.push(device.Uuid);
+			});
+			devicesService.deleteDevices({params: {uuidArray: uuidArray}});
+		};
 
 		$scope.openDeviceModal = function(size, index){
 			$uibModal.open({
@@ -63,9 +84,32 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 			devicesService.getSession({params:{id: device.Uuid}}).then(function(rs){
 				$scope.session = rs.data;
 			});
+			$scope.rotations = [
+				{label: '0°', value: 0},
+				{label: '90°', value: 1},
+				{label: '180°', value: 2},
+				{label: '270°', value: 3}
+			]
+
 			appsService.getApps().then(function(rs){
 				$scope.apps = rs.data;
 			});
+
+			$scope.save = function(){
+				var device = $scope.device;
+				var session = $scope.session;
+				var displays = device.Displays;
+				for(i in displays){
+					displays[i].Rotation = displays[0].Rotation;
+				}
+				device.Displays = displays;
+				devicesService.saveDevice(device, {params:{id: device.Uuid}}).then(function(rs){
+					console.log(rs);
+				});
+				devicesService.saveSession(session, {params:{id: session.Uuid}}).then(function(rs){
+					console.log(rs);
+				});
+			};
 
 			//Live view
 			devicesService.getImages({params:{id: device.Uuid}}).then(function(rs){
