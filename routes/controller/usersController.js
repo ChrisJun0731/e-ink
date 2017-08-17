@@ -11,4 +11,19 @@ router.get('/api/user/', function(req, res){
 	proxy.forwardGetRequest();
 });
 
+router.put('/api/user/', function(req, res){
+	var proxy = new Proxy(req, res);
+	proxy.forwardPutRequest();
+});
+
+router.post('/api/user/', function(req, res){
+	var proxy = new Proxy(req, res);
+	proxy.forwardPostRequest();
+});
+
+router.delete('/api/user/', function(req, res){
+	var proxy = new Proxy(req, res);
+	proxy.forwardDelRequest();
+})
+
 module.exports= router;
