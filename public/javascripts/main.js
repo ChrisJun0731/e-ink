@@ -10,7 +10,8 @@ require.config({
 		'app': '../start',
 		'services': '../services',
 		'xeditable': 'xeditable',
-		'ui-bootstrap': 'ui-bootstrap-tpls-2.5.0'
+		'ui-bootstrap': 'ui-bootstrap-tpls-2.5.0',
+		'angular-toastr': 'angular-toastr.tpls'
 	},
 	shim:{
 		'angular': {
@@ -25,6 +26,7 @@ require.config({
 		'xeditable': ['angular'],
 		'angular-animate': ['angular'],
 		'ui-bootstrap': ['angular', 'angular-animate'],
+		'angular-toastr': ['angular']
 	},
 	deps: ['app']
 });

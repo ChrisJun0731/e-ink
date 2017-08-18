@@ -1,4 +1,6 @@
 {
   "serverAddress": "192.168.30.195",
-  "serverPort": 8081
+  "serverPort": 8081,
+  "apiKey": "dd40b60f442be7a6",
+  "apiSecret": "NsT+Ul4gcWpK/IUc/fnVCLtSYmuSJ09B6h73Fpt0HMg"
 }

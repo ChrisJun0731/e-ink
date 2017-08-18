@@ -7,12 +7,12 @@ var util = require('util');
 var fs = require('fs');
 
 var proxy = function(request, response){
-
 	var config = fs.readFileSync('public/config/config.json', 'utf-8');
 	var configObj = JSON.parse(config);
 	this.host = configObj.serverAddress;
 	this.port = configObj.serverPort;
-
+	this.apiKey = configObj.apiKey;
+	this.apiSecret = configObj.apiSecret;
 
 	/**
 	 * 代理客户端的get请求，并将结果直接返回到客户端。
@@ -59,17 +59,9 @@ var proxy = function(request, response){
 		clientRequest.write(JSON.stringify(request.body));
 		clientRequest.end();
 		clientRequest.on('response', function(clientResponse){
-			// var data = '';
-			// clientResponse.on('data', function(chunk){
-			// 	data += chunk;
-			// });
-			// clientResponse.on('end', function(){
-			// 	response.send(data);
-			// });
 			response.send(clientResponse.statusCode);
 		});
-	}
-
+	};
 
 	/**
 	 * 根据客户端的请求，构建代理请求的header
@@ -77,8 +69,8 @@ var proxy = function(request, response){
 	 * @returns {{}} 代理请求的头对象
 	 */
 	this.createHeader = function(request) {
-		var apiKey = 'dd40b60f442be7a6';
-		var apiSecret = 'NsT+Ul4gcWpK/IUc/fnVCLtSYmuSJ09B6h73Fpt0HMg';
+		var apiKey = this.apiKey;
+		var apiSecret = this.apiSecret;
 		var date = Date().split('(')[0].slice(0,-1);
 		var method = request.method;
 		var path = this.createPath(request);
@@ -115,9 +107,23 @@ var proxy = function(request, response){
 	 * @param request
 	 */
 	this.createPath = function(request){
-		var path = request.url;
+		var path = request._parsedUrl.pathname;
+
 		if(request.query.id != null){
 			path = request._parsedUrl.pathname + request.query.id;
+		}
+		if(request.query.uuidArray != null){
+			var uuidArray = request.query.uuidArray;
+			var isArray = Array.isArray(uuidArray);
+			if(isArray){
+				for(i in uuidArray){
+					path += uuidArray[i] + ',';
+				}
+				path = path.slice(0, -1);
+			}
+			else{
+				path += uuidArray;
+			}
 		}
 		return path;
 	};
@@ -133,10 +139,16 @@ var proxy = function(request, response){
 		}
 		if(request.query.uuidArray != null){
 			var uuidArray = request.query.uuidArray;
-			for(i in uuidArray){
-				path += uuidArray[i] + ',';
+			var isArray = Array.isArray(uuidArray);
+			if(isArray){
+				for(i in uuidArray){
+					path += uuidArray[i] + ',';
+				}
+				path = path.slice(0, -1);
 			}
-			path.slice(0, -2);
+			else{
+				path += uuidArray;
+			}
 		}
 		return path;
 	}

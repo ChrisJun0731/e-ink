@@ -42,7 +42,7 @@
 </section>
 <script type="text/ng-template" id="deviceModal.html">
 	<div class="modal-header">
-		<h3 class="modal-title" id="modal-title">{{device.Uuid}}</h3>
+		<h3 class="modal-title" id="modal-title">{{device.Options.Name||device.Uuid}}</h3>
 	</div>
 	<div class="modal-body">
 		<uib-tabset active="0">
@@ -51,7 +51,7 @@
 					<caption>Status {{device.State}}</caption>
 					<tr>
 						<td class="col-sm-4">Name</td>
-						<td class="col-sm-8">{{device.Options.Name}}</td>
+						<td class="col-sm-8"><input type="text" ng-model="device.Options.Name"></td>
 					</tr>
 					<tr>
 						<td class="col-sm-4">Battery</td>
@@ -153,12 +153,13 @@
 						<td class="col-sm-4">Display rotation</td>
 						<td class="col-sm-8">
 							<select ng-options="rotation.value as rotation.label for rotation in rotations"
-									ng-model="device.Displays[0].Rotation"></select>
+									ng-model=""></select>
+							{{device.Displays[0].Rotation}}</td>
 					</tr>
 				</table>
 				<div>
-					<button class="btn btn-default">Close</button>
-					<button class="btn btn-success" ng-click="save()">Save</button>
+					<button class="btn btn-default">Cancel</button>
+					<button class="btn btn-primary" ng-click="save()">Save</button>
 				</div>
 			</uib-tab>
 			<uib-tab heading="Device Configuration" index="1">

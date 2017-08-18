@@ -5,12 +5,12 @@
   <title>智能公交电子站牌--管理平台</title>
   <link type="text/css" rel="stylesheet" href="stylesheets/bootstrap.css">
   <link type="text/css" rel="stylesheet" href="stylesheets/xeditable.css">
+  <link type="text/css" rel="stylesheet" href="stylesheets/angular-toastr.css">
   <script type="text/javascript" defer async="true" data-main="javascripts/main.js" src="javascripts/plugins/require.js"></script>
 </head>
 <body>
-  <div class="container">
     <div class="row">
-      <div class="col-sm-1">
+      <div class="col-sm-2">
         <ul class="nav nav-pills nav-stacked">
           <li><a ui-sref="status">Software Suite</a></li>
           <li><a ui-sref="status">Status</a></li>
@@ -20,10 +20,9 @@
           <li><a ui-sref="settings">Settings</a></li>
         </ul>
       </div>
-      <div class="col-xs-11">
+      <div class="col-sm-10">
         <div ui-view="container"></div>
       </div>
     </div>
-  </div>
 </body>
 </html>

@@ -2,7 +2,7 @@
  * Created by Administrator on 2017/7/23.
  */
 define(['services/settingsService'], function(){
-	return['$scope', 'SettingsService', function($scope, settingsService){
+	return['$scope', 'toastr', 'SettingsService', function($scope, toastr, settingsService){
 		Array.prototype.contains = function(needle){
 			for(var i in this){
 				if(this[i] == needle){
@@ -76,14 +76,22 @@ define(['services/settingsService'], function(){
 
 		$scope.restartServices = function(){
 			settingsService.restartServices().then(function(rs){
-				console.log(rs.data);
+				if(rs.status == 200){
+					toastr.success('服务重启成功！');
+				}else{
+					toastr.error('服务重启失败！');
+				}
 			});
 		};
 
 		$scope.save = function(){
 			var data = $scope.config;
 			settingsService.save(data).then(function(rs){
-				console.log(rs.data);
+				if(rs.status == 204){
+					toastr.success('设置保存成功！');
+				}else{
+					toastr.error('设置保存失败！');
+				}
 			});
 		};
 

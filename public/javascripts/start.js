@@ -1,8 +1,8 @@
 /**
  * Created by Administrator on 2017/7/23.
  */
-define(['angular', 'angularAMD', 'angular-ui-router', 'xeditable', 'ui-bootstrap'], function(angular, angularAMD){
-	var app = angular.module('app', ['ui.router','xeditable', 'ui.bootstrap']);
+define(['angular', 'angularAMD', 'angular-ui-router', 'xeditable', 'ui-bootstrap', 'angular-toastr'], function(angular, angularAMD){
+	var app = angular.module('app', ['ui.router','xeditable', 'ui.bootstrap', 'toastr']);
 	app.config(function ($stateProvider, $urlRouterProvider) {
 		$urlRouterProvider.otherwise("/status");
 		$stateProvider

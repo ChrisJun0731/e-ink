@@ -2,11 +2,17 @@
  * Created by Administrator on 2017/7/23.
  */
 define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'services/appsService'], function(moment, Chart, angular){
-	return['$scope', 'DevicesService', 'AppsService', '$uibModal', function($scope, devicesService, appsService, $uibModal){
-		devicesService.getDevices().then(function(rs){
-			$scope.devices = rs.data;
-		});
+	return['$scope', 'toastr', 'DevicesService', 'AppsService', '$uibModal', function($scope, toastr, devicesService, appsService, $uibModal){
 
+		$scope.getDevices = function(){
+			devicesService.getDevices().then(function(rs){
+			$scope.devices = rs.data;
+			})
+		};
+
+		$scope.getDevices();
+
+		setInterval($scope.getDevices, 5000);
 
 		$scope.selectAllDevice = function(){
 			if($scope.all_flag == false){
@@ -28,28 +34,55 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 			angular.forEach($scope.devices, function(device){
 				uuidArray.push(device.Uuid);
 			});
-			devicesService.rebootDevices(uuidArray);
+			devicesService.rebootDevices(uuidArray).then(function(rs){
+				if(rs.status == 204){
+					toastr.success('设备重启成功！');
+				}else{
+					toastr.error('设备重启失败');
+				}
+			});
 		};
 		$scope.restartSessions = function(){
 			var uuidArray = [];
 			angular.forEach($scope.devices, function(device){
 				uuidArray.push(device.Uuid);
 			});
-			devicesService.restartSessions(uuidArray);
+			devicesService.restartSessions(uuidArray).then(function(rs){
+				if(rs.status == 204){
+					toastr.success('设备会话重启成功！');
+				}else{
+					toastr.error('设备会话重启失败！');
+				}
+			});
 		};
 		$scope.clearWebCaches = function(){
 			var uuidArray = [];
 			angular.forEach($scope.devices, function(device){
 				uuidArray.push(device.Uuid);
 			});
-			devicesService.clearWebCaches(uuidArray);
+			devicesService.clearWebCaches(uuidArray).then(function(rs){
+				if(rs.status == 204){
+					toastr.success('清除设备缓存成功！');
+				}else{
+					toastr.error('清除设备缓存失败！');
+				}
+			});
 		};
 		$scope.deleteDevices = function(){
 			var uuidArray = [];
 			angular.forEach($scope.devices, function(device){
 				uuidArray.push(device.Uuid);
 			});
-			devicesService.deleteDevices({params: {uuidArray: uuidArray}});
+			devicesService.deleteDevices({params: {uuidArray: uuidArray}}).then(function(rs){
+				if(rs.status == 204){
+					toastr.success('设备删除成功！');
+				}else{
+					toastr.error('设备删除失败！');
+				}
+			});
+			devicesService.getDevices().then(function(rs){
+				$scope.devices = rs.data;
+			});
 		};
 
 		$scope.openDeviceModal = function(size, index){
@@ -104,18 +137,26 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 				}
 				device.Displays = displays;
 				devicesService.saveDevice(device, {params:{id: device.Uuid}}).then(function(rs){
-					console.log(rs);
+					if(rs.status == 204){
+						toastr.success('设备状态和设置保存成功！');
+					}
 				});
 				devicesService.saveSession(session, {params:{id: session.Uuid}}).then(function(rs){
-					console.log(rs);
+					if(rs.status == 204){
+						toastr.success('设备会话保存成功！');
+					}
 				});
 			};
 
 			//Live view
-			devicesService.getImages({params:{id: device.Uuid}}).then(function(rs){
-				$scope.serverImgPath = rs.data.serverImgPath;
-				$scope.clientImgPath = rs.data.clientImgPath;
-			});
+			$scope.getImages = function(){
+				devicesService.getImages({params:{id: device.Uuid}}).then(function(rs){
+					$scope.serverImgPath = rs.data.serverImgPath;
+					$scope.clientImgPath = rs.data.clientImgPath;
+				});
+			};
+			$scope.getImages();
+			setInterval($scope.getImages, 5000);
 
 			//Charts
 			$scope.drawChart = function(configs) {
@@ -235,7 +276,7 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 							extTempData.push(status.Status.ExternalTempSensor);
 							disconData.push(status.Status.Disconnects);
 							imagesData.push(status.Status.Images);
-							xAxes.push(moment({y: status.Date[0], M: status.Date[1], d: status.Date[2], h: status.Date[3],
+							xAxes.push(moment({y: status.Date[0], M: status.Date[1]-1, d: status.Date[2], h: status.Date[3],
 								m: status.Date[4], s: status.Date[5]}).toDate());
 						});
 
