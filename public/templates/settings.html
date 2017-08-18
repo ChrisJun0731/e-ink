@@ -1,190 +1,200 @@
 <section>
-  <table class="table">
-    <caption>Global</caption>
-    <tr>
-      <td class="col-sm-4">Development Name</td>
-      <td class="col-sm-8"><input type="text" ng-model="config.Global.DeploymentName"></td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Development Key</td>
-      <td class="col-sm-8">
-        <input type="text" ng-model="config.Global.DeploymentKey">
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Features</td>
-      <td class="col-sm-8">
-        <input type="checkbox" name="features" ng-model="sleepManager"
-               ng-click="manipulateFeatures('sleep')">Sleep Manager
-        <input type="checkbox" name="features" ng-model="externalBattery"
-               ng-click="manipulateFeatures('battery')">External Battery
-        <input type="checkbox" name="features" ng-model="statusRequester"
-               ng-click="manipulateFeatures('status')">Status Requester
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">TimeZone</td>
-      <td><select name="timeZone"></select></td>
-    </tr>
-  </table>
-  <table class="table">
-    <caption>Graphics Engine</caption>
-    <tr>
-      <td class="col-sm-4">Default Backend</td>
-      <td class="col-sm-8">
-        <select name="backend" ng-options="backend for backend in backends" ng-model="config.Engine.DefaultBackend"></select>
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Max Sessions</td>
-      <td class="col-sm-8">
-        <input type="text" name="max_sessions" ng-model="config.Engine.MaxSessions">
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Image Cache Size</td>
-      <td class="col-sm-8">
-        <input type="text" name="image_cache_size" ng-model="config.Engine.ImageCacheSize">
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Session Cleanup Threshold(in minutes)</td>
-      <td class="col-sm-8">
-        <input type="text" ng-model="config.Engine.IdleThreshold">
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Display Options</td>
-      <td class="col-sm-8">
-        <input type="checkbox" name="display">Clear screen
-        <input type="checkbox" name="display">Draw border
-        <input type="checkbox" name="display">Disable inverse updates
-        <br/>
-        Visionect Software Suite needs to be restarted in order for display options changes to take effect
-      </td>
-    </tr>
-  </table>
-  <table class="table">
-    <caption>HTML Backend</caption>
-    <tr>
-      <td class="col-sm-4">Default URL</td>
-      <td class="col-sm-8">
-        <input type="text" ng-model="config.Engine.Backend.HTML.DefaultFields.url">
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Automatic page reload in seconds(0 = disabled)</td>
-      <td class="col-sm-8">
-        <input type="text" ng-model="config.Engine.Backend.HTML.DefaultFields.ReloadTimeout">
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Web Session Memory Limit</td>
-      <td class="col-sm-8">
-        <input type="text" ng-model="config.Engine.Backend.HTML.WebkitSessionMemoryLimit">
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">User Agent</td>
-      <td class="col-sm-8">
-        <input type="text" ng-model="config.Engine.Backend.HTML.WebkitUserAgent">
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Render Timeout</td>
-      <td class="col-sm-8">
-        <input type="text" ng-model="config.Engine.Backend.HTML.RenderTimeout">
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Enable Font Antialias</td>
-      <td class="col-sm-8">
-        <select ng-options="enable.value as enable.label for enable in enables" ng-model="config.Engine.Backend.HTML.FontAntialias"></select>
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Enable Page Caching</td>
-      <td class="col-sm-8">
-        <select ng-options="enable.value as enable.label for enable in enables" ng-model="config.Engine.Backend.HTML.PageCaching"></select>
-      </td>
-    </tr>
-  </table>
-  <table class="table">
-    <caption>Default Device Settings</caption>
-    <tr>
-      <td class="col-sm-4">Ignore Input If Device Not in Sync</td>
-      <td class="col-sm-8">
-        <select ng-options="enable.value as enable.label for enable in enables" ng-model="config.Engine.IgnoreInputIfDeviceNotSync"></select>
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Bit Depth</td>
-      <td class="col-sm-8">
-        <select ng-options="depth.value as depth.label for depth in depths" ng-model="config.Engine.Encoding"></select>
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Display Rotation</td>
-      <td class="col-sm-8">
-        <select ng-options="rotation.value as rotation.label for rotation in rotations"
-                ng-model="config.Engine.Backend.HTML.PageLayout"></select>
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Dithering</td>
-      <td class="col-sm-8">
-        <select ng-options="dithering.value as dithering.label for dithering in ditherings"
-                ng-model="config.Engine.DitheringMethod"></select>
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Force Rectangle Support</td>
-      <td class="col-sm-8">
-        <select ng-options="enable.value as enable.label for enable in enables" ng-model="config.Engine.ForceRectangleSupport"></select>
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Force group synchronization</td>
-      <td class="col-sm-8">
-        <select ng-options="enable.value as enable.label for enable in enables" ng-model="config.Engine.ForceSyncGroup"></select>
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Synchronize groups only all of its devices are present</td>
-      <td class="col-sm-8">
-        <select ng-options="enable.value as enable.label for enable in enables" ng-model="config.Engine.GroupSyncOnlyIfAllDevicesArePresent"></select>
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Automatic Firmware Update</td>
-      <td class="col-sm-8">
-        <select ng-options="support.value as support.label for support in supports" ng-model="config.Global.AutoUpdater"></select>
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Automatic Bootloader Upgrade</td>
-      <td class="col-sm-8">
-        <select ng-options="support.value as support.label for support in supports" ng-model="config.Global.AutoBootUpdater"></select>
-      </td>
-    </tr>
-    <tr>
-      <td class="col-sm-4">Device state polling</td>
-      <td class="col-sm-8">
-        <input type="text" ng-model="config.Global.DeviceStatePolling">
-      </td>
-    </tr>
-  </table>
-  <table class="table">
-    <caption>Firmwares</caption>
-    <td class="col-sm-4">Firmware Repository</td>
-    <td class="col-sm-8">
-      <input type="text" ng-model="config.FirmwareRepository[0]">
-    </td>
-  </table>
-  <div>
-    <button class="btn btn-danger" ng-click="restartServices()">Restart Services</button>
-    <button class="btn btn-info" ng-click="downloadLogs()">Download Logs</button>
-    <!--<button class="btn btn-cancel">Cancel</button>-->
-    <button class="btn btn-primary" ng-click="save()">Save</button>
-  </div>
+	<form class="form-horizontal">
+		<fieldset>
+			<legend>Global</legend>
+			<div class="form-group">
+				<label class="control-label col-md-2">Development Name</label>
+				<div class="col-md-8">
+					<input type="text" class="form-control" ng-model="config.Global.DeploymentName">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Development Key</label>
+				<div class="col-md-8">
+					<input type="text" class="form-control" ng-model="config.Global.DeploymentKey">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Features</label>
+				<div class="col-md-8">
+					<input type="checkbox" name="features" ng-model="sleepManager"
+						   ng-click="manipulateFeatures('sleep')">Sleep Manager
+					<input type="checkbox" name="features" ng-model="externalBattery"
+						   ng-click="manipulateFeatures('battery')">External Battery
+					<input type="checkbox" name="features" ng-model="statusRequester"
+						   ng-click="manipulateFeatures('status')">Status Requester
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">TimeZone</label>
+				<div class="col-md-8">
+					<select name="timeZone" class="form-control"></select>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend>Graphics Engine</legend>
+			<div class="form-group">
+				<label class="control-label col-md-2">Default Backend</label>
+				<div class="col-md-8">
+					<select name="backend" class="form-control" ng-options="backend for backend in backends"
+							ng-model="config.Engine.DefaultBackend"></select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Max Sessions</label>
+				<div class="col-md-8">
+					<input type="text" name="max_sessions" class="form-control" ng-model="config.Engine.MaxSessions">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Image Cache Size</label>
+				<div class="col-md-8">
+					<input type="text" name="image_cache_size" ng-model="config.Engine.ImageCacheSize">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Session Cleanup Threshold(in minutes)</label>
+				<div class="col-md-8">
+					<input type="text" class="form-control" ng-model="config.Engine.IdleThreshold">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2">Display Options</label>
+				<div class="col-md-8">
+					<input type="checkbox" name="display">Clear screen
+					<input type="checkbox" name="display">Draw border
+					<input type="checkbox" name="display">Disable inverse updates
+					<span class="help-block">
+						Visionect Software Suite needs to be restarted in order for display options changes to take effect
+					</span>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+
+	<table class="table">
+		<caption>HTML Backend</caption>
+		<tr>
+			<td class="col-sm-4">Default URL</td>
+			<td class="col-sm-8">
+				<input type="text" ng-model="config.Engine.Backend.HTML.DefaultFields.url">
+			</td>
+		</tr>
+		<tr>
+			<td class="col-sm-4">Automatic page reload in seconds(0 = disabled)</td>
+			<td class="col-sm-8">
+				<input type="text" ng-model="config.Engine.Backend.HTML.DefaultFields.ReloadTimeout">
+			</td>
+		</tr>
+		<tr>
+			<td class="col-sm-4">Web Session Memory Limit</td>
+			<td class="col-sm-8">
+				<input type="text" ng-model="config.Engine.Backend.HTML.WebkitSessionMemoryLimit">
+			</td>
+		</tr>
+		<tr>
+			<td class="col-sm-4">User Agent</td>
+			<td class="col-sm-8">
+				<input type="text" ng-model="config.Engine.Backend.HTML.WebkitUserAgent">
+			</td>
+		</tr>
+		<tr>
+			<td class="col-sm-4">Render Timeout</td>
+			<td class="col-sm-8">
+				<input type="text" ng-model="config.Engine.Backend.HTML.RenderTimeout">
+			</td>
+		</tr>
+		<tr>
+			<td class="col-sm-4">Enable Font Antialias</td>
+			<td class="col-sm-8">
+				<select ng-options="enable.value as enable.label for enable in enables" ng-model="config.Engine.Backend.HTML.FontAntialias"></select>
+			</td>
+		</tr>
+		<tr>
+			<td class="col-sm-4">Enable Page Caching</td>
+			<td class="col-sm-8">
+				<select ng-options="enable.value as enable.label for enable in enables" ng-model="config.Engine.Backend.HTML.PageCaching"></select>
+			</td>
+		</tr>
+	</table>
+	<table class="table">
+		<caption>Default Device Settings</caption>
+		<tr>
+			<td class="col-sm-4">Ignore Input If Device Not in Sync</td>
+			<td class="col-sm-8">
+				<select ng-options="enable.value as enable.label for enable in enables" ng-model="config.Engine.IgnoreInputIfDeviceNotSync"></select>
+			</td>
+		</tr>
+		<tr>
+			<td class="col-sm-4">Bit Depth</td>
+			<td class="col-sm-8">
+				<select ng-options="depth.value as depth.label for depth in depths" ng-model="config.Engine.Encoding"></select>
+			</td>
+		</tr>
+		<tr>
+			<td class="col-sm-4">Display Rotation</td>
+			<td class="col-sm-8">
+				<select ng-options="rotation.value as rotation.label for rotation in rotations"
+						ng-model="config.Engine.Backend.HTML.PageLayout"></select>
+			</td>
+		</tr>
+		<tr>
+			<td class="col-sm-4">Dithering</td>
+			<td class="col-sm-8">
+				<select ng-options="dithering.value as dithering.label for dithering in ditherings"
+						ng-model="config.Engine.DitheringMethod"></select>
+			</td>
+		</tr>
+		<tr>
+			<td class="col-sm-4">Force Rectangle Support</td>
+			<td class="col-sm-8">
+				<select ng-options="enable.value as enable.label for enable in enables" ng-model="config.Engine.ForceRectangleSupport"></select>
+			</td>
+		</tr>
+		<tr>
+			<td class="col-sm-4">Force group synchronization</td>
+			<td class="col-sm-8">
+				<select ng-options="enable.value as enable.label for enable in enables" ng-model="config.Engine.ForceSyncGroup"></select>
+			</td>
+		</tr>
+		<tr>
+			<td class="col-sm-4">Synchronize groups only all of its devices are present</td>
+			<td class="col-sm-8">
+				<select ng-options="enable.value as enable.label for enable in enables" ng-model="config.Engine.GroupSyncOnlyIfAllDevicesArePresent"></select>
+			</td>
+		</tr>
+		<tr>
+			<td class="col-sm-4">Automatic Firmware Update</td>
+			<td class="col-sm-8">
+				<select ng-options="support.value as support.label for support in supports" ng-model="config.Global.AutoUpdater"></select>
+			</td>
+		</tr>
+		<tr>
+			<td class="col-sm-4">Automatic Bootloader Upgrade</td>
+			<td class="col-sm-8">
+				<select ng-options="support.value as support.label for support in supports" ng-model="config.Global.AutoBootUpdater"></select>
+			</td>
+		</tr>
+		<tr>
+			<td class="col-sm-4">Device state polling</td>
+			<td class="col-sm-8">
+				<input type="text" ng-model="config.Global.DeviceStatePolling">
+			</td>
+		</tr>
+	</table>
+	<table class="table">
+		<caption>Firmwares</caption>
+		<td class="col-sm-4">Firmware Repository</td>
+		<td class="col-sm-8">
+			<input type="text" ng-model="config.FirmwareRepository[0]">
+		</td>
+	</table>
+	<div>
+		<button class="btn btn-danger" ng-click="restartServices()">Restart Services</button>
+		<button class="btn btn-info" ng-click="downloadLogs()">Download Logs</button>
+		<!--<button class="btn btn-cancel">Cancel</button>-->
+		<button class="btn btn-primary" ng-click="save()">Save</button>
+	</div>
 </section>
