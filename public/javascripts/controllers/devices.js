@@ -6,7 +6,7 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 
 		$scope.getDevices = function(){
 			devicesService.getDevices().then(function(rs){
-			$scope.devices = rs.data;
+				$scope.devices = rs.data;
 			})
 		};
 
@@ -14,79 +14,23 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 
 		setInterval($scope.getDevices, 5000);
 
-		$scope.selectAllDevice = function(){
-			if($scope.all_flag == false){
-				angular.forEach($scope.devices, function(device){
-					device.selected = true;
-				});
-				$scope.all_flag = true;
-			}
-			else{
-				angular.forEach($scope.devices, function(device){
-					device.selected = false;
-				});
-				$scope.all_flag = false;
-			}
-		};
-
-		$scope.rebootDevices = function(){
-			var uuidArray = [];
-			angular.forEach($scope.devices, function(device){
-				uuidArray.push(device.Uuid);
-			});
-			devicesService.rebootDevices(uuidArray).then(function(rs){
-				if(rs.status == 204){
-					toastr.success('设备重启成功！');
-				}else{
-					toastr.error('设备重启失败');
-				}
-			});
-		};
-		$scope.restartSessions = function(){
-			var uuidArray = [];
-			angular.forEach($scope.devices, function(device){
-				uuidArray.push(device.Uuid);
-			});
-			devicesService.restartSessions(uuidArray).then(function(rs){
-				if(rs.status == 204){
-					toastr.success('设备会话重启成功！');
-				}else{
-					toastr.error('设备会话重启失败！');
-				}
-			});
-		};
-		$scope.clearWebCaches = function(){
-			var uuidArray = [];
-			angular.forEach($scope.devices, function(device){
-				uuidArray.push(device.Uuid);
-			});
-			devicesService.clearWebCaches(uuidArray).then(function(rs){
-				if(rs.status == 204){
-					toastr.success('清除设备缓存成功！');
-				}else{
-					toastr.error('清除设备缓存失败！');
-				}
-			});
-		};
-		$scope.deleteDevices = function(){
-			var uuidArray = [];
-			angular.forEach($scope.devices, function(device){
-				uuidArray.push(device.Uuid);
-			});
-			devicesService.deleteDevices({params: {uuidArray: uuidArray}}).then(function(rs){
-				if(rs.status == 204){
-					toastr.success('设备删除成功！');
-				}else{
-					toastr.error('设备删除失败！');
-				}
-			});
-			devicesService.getDevices().then(function(rs){
-				$scope.devices = rs.data;
-			});
-		};
+		// $scope.selectAllDevice = function(){
+		// 	if($scope.all_flag == false){
+		// 		angular.forEach($scope.devices, function(device){
+		// 			device.selected = true;
+		// 		});
+		// 		$scope.all_flag = true;
+		// 	}
+		// 	else{
+		// 		angular.forEach($scope.devices, function(device){
+		// 			device.selected = false;
+		// 		});
+		// 		$scope.all_flag = false;
+		// 	}
+		// };
 
 		$scope.openDeviceModal = function(size, index){
-			$uibModal.open({
+			var uibModalInstance = $uibModal.open({
 				templateUrl: 'deviceModal.html',
 				controller: deviceModalController,
 				size: size,
@@ -99,7 +43,6 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 		};
 
 		var deviceModalController = function($scope, device){
-
 			//Status&Settings
 			$scope.device = device;
 			$scope.backends = [
@@ -122,11 +65,64 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 				{label: '90°', value: 1},
 				{label: '180°', value: 2},
 				{label: '270°', value: 3}
-			]
+			];
+
+			$scope.rebootDevice = function(){
+				if(device.State == 'offline'){
+					toastr.warning('设备不在线，无法重启！');
+					return;
+				}
+				devicesService.rebootDevice($scope.device.Uuid).then(function(rs){
+					if(rs.status == 204){
+						toastr.success('设备重启成功！');
+					}else{
+						toastr.error('设备重启失败');
+					}
+				});
+			};
+
+			$scope.restartSession = function(){
+				if(device.State == 'offline'){
+					toastr.warning('设备不在线，无法重启！');
+					return;
+				}
+				devicesService.restartSession($scope.device.Uuid).then(function(rs){
+					if(rs.status == 204){
+						toastr.success('设备会话重启成功！');
+					}else{
+						toastr.error('设备会话重启失败！');
+					}
+				});
+			};
+			$scope.clearWebCache = function(){
+				devicesService.clearWebCache($scope.device.Uuid).then(function(rs){
+					if(rs.status == 204){
+						toastr.success('清除设备缓存成功！');
+					}else{
+						toastr.error('清除设备缓存失败！');
+					}
+				});
+			};
+			$scope.deleteDevice = function(){
+				devicesService.deleteDevice($scope.device.Uuid).then(function(rs){
+					if(rs.status == 204){
+						toastr.success('设备删除成功！');
+					}else{
+						toastr.error('设备删除失败！');
+					}
+				});
+				devicesService.getDevices().then(function(rs){
+					$scope.devices = rs.data;
+				});
+			};
 
 			appsService.getApps().then(function(rs){
 				$scope.apps = rs.data;
 			});
+
+			$scope.close = function(){
+				$scope.$dismiss('cancel');
+			};
 
 			$scope.save = function(){
 				var device = $scope.device;
@@ -151,8 +147,8 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 			//Live view
 			$scope.getImages = function(){
 				devicesService.getImages({params:{id: device.Uuid}}).then(function(rs){
-					$scope.serverImgPath = rs.data.serverImgPath;
-					$scope.clientImgPath = rs.data.clientImgPath;
+					$scope.serverImgPath = rs.data.serverImgPath+'?random='+Math.random();
+					$scope.clientImgPath = rs.data.clientImgPath+'?random='+Math.random();
 				});
 			};
 			$scope.getImages();
@@ -228,32 +224,32 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 						from = moment().startOf('day').unix();
 						to = moment().endOf('day').unix();
 					};
-					break;
+						break;
 					case 'Yesterday': {
 						from = moment().subtract(1, 'd').startOf('day').unix();
 						to = moment().subtract(1, 'd').endOf('day').unix();
 					};
-					break;
+						break;
 					case 'Last 7 days': {
 						from = moment().subtract(7, 'd').startOf('day').unix();
 						to = moment().endOf('day').unix();
 					};
-					break;
+						break;
 					case 'Last 30 days': {
 						from = moment().subtract(30, 'd').startOf('day').unix();
 						to = moment().endOf('day').unix();
 					};
-					break;
+						break;
 					case 'This Month': {
 						from = moment().startOf('month').unix();
 						to = moment().endOf('month').unix();
 					};
-					break;
+						break;
 					case 'Last Month': {
 						from = moment().subtract(1, 'month').startOf('month').unix();
 						to = moment().subtract(1, 'month').endOf('month').unix();
 					};
-					break;
+						break;
 					default: ;
 				}
 				devicesService.getDeviceStatus({params: {id: device.Uuid, from: from, to: to}})

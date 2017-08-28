@@ -1,44 +1,48 @@
 <section>
-  <table class="table">
+  <table class="table table-hover">
     <thead>
-      <tr>
-        <th>Name</th>
-        <th>Url</th>
-        <th>Description</th>
-        <th></th>
-      </tr>
+    <tr class="table-heading">
+      <th>名称</th>
+      <th>Url地址</th>
+      <th>描述</th>
+      <th></th>
+    </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="app in apps">
-        <td>
-          <span editable-text="app.Name" e-name="name" e-form="rowform">{{app.Name||'empty'}}</span>
-        </td>
-        <td>
-          <span editable-text="app.Url" e-name="url" e-form="rowform">{{app.Url||'empty'}}</span>
-        </td>
-        <td>
-          <span editable-text="app.Description" e-name="description" e-form="rowform">{{app.Description||'empty'}}</span>
-        </td>
-        <td style="white-space: nowrap">
-          <form editable-form name="rowform" onbeforesave="saveApp($data, app._id)" ng-show="rowform.$visible" class="form-buttons form-inline">
-            <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
-              save
-            </button>
-            <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
-              cancel
-            </button>
-          </form>
-          <div class="buttons" ng-show="!rowform.$visible">
-            <button type="button" class="btn btn-primary" ng-click="rowform.$show()">
-              edit
-            </button>
-            <button type="button" class="btn btn-danger" ng-click="removeApp($index, app._id)">
-              del
-            </button>
-          </div>
-        </td>
-      </tr>
+    <tr ng-repeat="app in apps">
+      <td>
+        <span editable-text="app.Name" e-name="name" e-form="rowform">{{app.Name||'empty'}}</span>
+      </td>
+      <td>
+        <span editable-text="app.Url" e-name="url" e-form="rowform">{{app.Url||'empty'}}</span>
+      </td>
+      <td>
+        <span editable-text="app.Description" e-name="description" e-form="rowform">{{app.Description||'empty'}}</span>
+      </td>
+      <td style="white-space: nowrap">
+        <form editable-form name="rowform" onbeforesave="saveApp($data, app._id)" ng-show="rowform.$visible" class="form-buttons pull-right form-inline">
+          <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+            保存
+          </button>
+          <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+            取消
+          </button>
+        </form>
+        <div class="buttons pull-right" ng-show="!rowform.$visible">
+          <button type="button" class="btn btn-primary" ng-click="rowform.$show()">
+            编辑
+          </button>
+          <button type="button" class="btn btn-danger" ng-click="removeApp($index, app._id)">
+            删除
+          </button>
+        </div>
+      </td>
+    </tr>
     </tbody>
   </table>
-    <button class="btn btn-info pull-right" ng-click="addApp()">Add App</button>
+  <div class="bottomBtn">
+    <div class="btn-group pull-right mr mt">
+      <button type="button" class="btn btn-default" ng-click="addApp()">添加</button>
+    </div>
+  </div>
 </section>

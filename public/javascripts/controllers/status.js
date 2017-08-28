@@ -21,12 +21,12 @@ define(['services/statusService', 'services/devicesService'], function(){
 			}
 		});
         statusService.getStatus().then(function(rs){
-            $scope.prop = "";
+            var prop = "";
             $scope.status = rs.data;
             angular.forEach($scope.status.Okulars, function(value, key){
-                $scope.prop = key;
+                prop = key;
             });
-            $scope.okulars = $scope.status.Okulars[$scope.prop];
+            $scope.okulars = $scope.status.Okulars[prop];
         });
 	}];
 });

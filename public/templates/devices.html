@@ -1,198 +1,227 @@
 <section>
-	<table class="table">
-		<thead>
-		<tr>
-			<th><input type="checkbox" ng-click="selectAllDevice()" ng-init="all_flag=false">&nbsp;#</th>
-			<th>Name/UUID</th>
-			<th>Battery</th>
-			<th>State</th>
-			<th>Signal Strength</th>
-			<th>Connectivity</th>
-			<th>Firmware</th>
-			<th>HW.reversion</th>
-			<th></th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr ng-repeat="device in devices">
-			<td>
-				<input type="checkbox" ng-true-value="true" ng-false-value="false" ng-model="device.selected">&nbsp;{{$index+1}}
-			</td>
-			<td>{{device.Options.Name||device.Uuid}}</td>
-			<td>{{device.Status.Battery+"%"}}</td>
-			<td>{{device.State}}</td>
-			<td>{{"-"+ device.Status.RSSI}}</td>
-			<td>{{device.connectivity}}</td>
-			<td>{{device.Status.FirmwareMajor+"."+device.Status.FirmwareMinor+"."+device.Status.FirmwareRevision}}</td>
-			<td>{{device.Options.Revision}}</td>
-			<td><button type="button" class="btn btn-info btn-sm" ng-click="openDeviceModal('lg', $index)">Edit</button></td>
-		</tr>
-		</tbody>
-	</table>
-	<div class="row">
-		<div class="col-md-2">
-			<button class="btn btn-danger" ng-click="deleteDevices(uuidArray)">Remove device</button>
-		</div>
-		<div class="col-md-10 btn-group">
-			<button class="btn btn-danger" ng-click="rebootDevices(uuidArray)">Reboot device</button>
-			<button class="btn btn-danger" ng-click="restartSessions(uuidArray)">Restart Session</button>
-			<button class="btn btn-danger" ng-click="clearWebCaches(uuidArray)">Clear web cache</button>
-		</div>
-	</div>
+    <table class="table table-hover">
+        <thead>
+        <tr class="table-heading">
+            <th><input type="checkbox" ng-click="selectAllDevice()" ng-init="all_flag=false">&nbsp;#</th>
+            <th>名称/UUID</th>
+            <th>电量</th>
+            <th>状态</th>
+            <th>信号强度</th>
+            <th>连接方式</th>
+            <th>固件版本</th>
+            <th>硬件版本</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="device in devices">
+            <td>
+                <input type="checkbox" ng-true-value="true" ng-false-value="false" ng-modal="device.selected" >&nbsp;{{$index+1}}
+            </td>
+            <td>{{device.Options.Name||device.Uuid}}</td>
+            <td>{{device.Status.Battery+"%"}}</td>
+            <td>{{device.State}}</td>
+            <td>{{"-"+ device.Status.RSSI}}</td>
+            <td>{{device.connectivity}}</td>
+            <td>{{device.Status.FirmwareMajor+"."+device.Status.FirmwareMinor+"."+device.Status.FirmwareRevision}}</td>
+            <td>{{device.Options.Revision}}</td>
+            <td><button type="button" class="btn btn-info" ng-click="openDeviceModal('lg', $index)">查看</button></td>
+        </tr>
+        </tbody>
+    </table>
 </section>
-<script type="text/ng-template" id="deviceModal.html">
-	<div class="modal-header">
-		<h3 class="modal-title" id="modal-title">{{device.Options.Name||device.Uuid}}</h3>
-	</div>
-	<div class="modal-body">
-		<uib-tabset active="0">
-			<uib-tab heading="Status&Settings" index="0">
-				<table class="table">
-					<caption>Status {{device.State}}</caption>
-					<tr>
-						<td class="col-sm-4">Name</td>
-						<td class="col-sm-8"><input type="text" ng-model="device.Options.Name"></td>
-					</tr>
-					<tr>
-						<td class="col-sm-4">Battery</td>
-						<td class="col-sm-8">{{device.Status.Battery + "%"}}</td>
-					</tr>
-					<tr>
-						<td class="col-sm-4">Signal Strength</td>
-						<td class="col-sm-8">{{"-" + device.Status.RSSI}}</td>
-					</tr>
-					<tr>
-						<td class="col-sm-4">Temperature</td>
-						<td class="col-sm-8">{{device.Status.Temperature}}</td>
-					</tr>
-					<tr>
-						<td class="col-sm-4">Hardware Revision</td>
-						<td class="col-sm-8">{{device.Options.Revision}}</td>
-					</tr>
-					<tr>
-						<td class="col-sm-4">Firmware Revision</td>
-						<td class="col-sm-8">
-							{{device.Status.FirmwareMajor+"."+device.Status.FirmwareMinor+"."+device.Status.FirmwareRevision}}
-						</td>
-					</tr>
-				</table>
-				<table class="table">
-					<thead>
-					<caption>Sleep</caption>
-					</thead>
-					<tr>
-						<td class="col-sm-4">Period</td>
-						<td class="col-sm-8"></td>
-					</tr>
-				</table>
-				<table class="table">
-					<caption>Device Handling</caption>
-					<tr>
-						<td class="col-sm-4">Automatic update to latest firmware</td>
-						<td class="col-sm-8">
-							<input type="checkbox" ng-true-value="'true'" ng-false-value="'false'" ng-model="device.Options.AutoFlash">
-						</td>
-					</tr>
-					<tr>
 
-						<td class="col-sm-4">Automatic update to latest bootloader</td>
-						<td class="col-sm-8">
-							<input type="checkbox" ng-true-value="'true'" ng-false-value="'false'" ng-model="device.Options.AutoBootFlash">
-						</td>
-					</tr>
-				</table>
-				<table class="table">
-					<caption>Session</caption>
-					<tr>
-						<td class="col-sm-4">Backend</td>
-						<td class="col-sm-8">
-							<select ng-model="session.Backend.Name" ng-options="backend.value as backend.label for backend in backends">
-							</select>
-						</td>
-					</tr>
-					<tr ng-show="session.Backend.Name=='HTML'">
-						<td class="col-sm-4">Application</td>
-						<td class="col-sm-8">
-							<select ng-model="session.Backend.Fields.url" ng-options="app.Url as app.Name for app in apps"></select>
-						</td>
-					</tr>
-					<tr ng-show="session.Backend.Name=='HTML'">
-						<td class="col-sm-4">Automatic page reload in seconds (0=disabled)</td>
-						<td class="col-sm-8"></td>
-					</tr>
-					<tr>
-						<td class="col-sm-4">Default dithering</td>
-						<td class="col-sm-8">
-							<select ng-model="session.Options.DefaultDithering" ng-options="dithering for dithering in ditherings"></select>
-						</td>
-					</tr>
-					<tr>
-						<td class="col-sm-4">Default bit depth</td>
-						<td class="col-sm-8">
-							<select ng-model="session.Options.DefaultEncoding" ng-options="encoding for encoding in encodings"></select>
-						</td>
-					</tr>
-				</table>
-				<table class="table">
-					<thead>
-					<caption>Displays</caption>
-					</thead>
-					<tr>
-						<td class="col-sm-4">Display type</td>
-						<td class="col-sm-8">
-							<input type="text" value="6'' E Ink" readonly ng-show="device.Displays[0].Width==800">
-							<input type="text" value="6'' E Ink(V Tablet 2)" readonly ng-show="device.Displays[0].Width==1024">
-							<input type="text" value="9.7'' E Ink" readonly ng-show="device.Displays[0].Width==1200">
-							<input type="text" value="10.7'' Plastic Logic" readonly ng-show="device.Displays[0].Width==1280">
-							<input type="text" value="13.3'' E Ink" readonly ng-show="device.Displays[0].Width==1600">
-							<input type="text" value="32'' E Ink" readonly ng-show="device.Displays[0].Width==1440">
-							<input type="text" value="32'' E Ink Color" readonly ng-show="device.Displays[0].Width==720">
-						</td>
-					</tr>
-					<tr>
-						<td class="col-sm-4">Display rotation</td>
-						<td class="col-sm-8">
-							<select ng-options="rotation.value as rotation.label for rotation in rotations"
-									ng-model=""></select>
-							{{device.Displays[0].Rotation}}</td>
-					</tr>
-				</table>
-				<div>
-					<button class="btn btn-default">Cancel</button>
-					<button class="btn btn-primary" ng-click="save()">Save</button>
-				</div>
-			</uib-tab>
-			<uib-tab heading="Device Configuration" index="1">
-				Device Configuration
-			</uib-tab>
-			<uib-tab heading="Live View" index="2">
-				<div>
-					<div class="row">
-						<div class="col-sm-6">
-							<h6 class="caption text-center">device</h6>
-							<div class="thumbnail">
-								<img ng-src="{{clientImgPath}}" err-src="images/no-image.png"/>
-							</div>
-						</div>
-						<div class="col-sm-6">
-							<h6 class="caption text-center">server</h6>
-							<div class="thumbnail">
-								<img ng-src="{{serverImgPath}}" err-src="images/no-image.png"/>
-							</div>
-						</div>
-					</div>
-				</div>
-			</uib-tab>
-			<uib-tab heading="Charts" index="3">
-				<select ng-model="period" ng-options="period for period in periods" ng-change="drawCharts(period)"></select>
-				<canvas id="signalChart" width="400px" height="150px"></canvas>
-				<canvas id="batteryChart" width="400px" height="150px"></canvas>
-				<canvas id="tempChart" width="400px" height="150px"></canvas>
-				<canvas id="extTempChart" width="400px" height="150px"></canvas>
-				<canvas id="disconChart" width="400px" height="150px"></canvas>
-				<canvas id="imagesChart" width="400px" height="150px"></canvas>
-				<canvas id="transferChart" width="400px" height="150px"></canvas>
-			</uib-tab>
-		</uib-tabset>
-	</div>
+<!--模态框部分-->
+<script type="text/ng-template" id="deviceModal.html">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">{{device.Options.Name||device.Uuid}}</h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" ng-click="close()"><i class="fa fa-times fa-2x"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <uib-tabset active="0" type="pills">
+                <uib-tab classes="tabItem" heading="状态&设置" index="0">
+                    <hr>
+                    <div class="uib-content">
+                        <table class="table">
+                            <caption class="text-center"><h3>状态 <span class="text-danger">{{device.State}}</span></h3></caption>
+                            <tr>
+                                <td class="col-sm-4">名称</td>
+                                <td class="col-sm-8"><input type="text" class="form-control" ng-model="device.Options.Name"/></td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-4">电量</td>
+                                <td class="col-sm-8">{{device.Status.Battery + "%"}}</td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-4">信号强度</td>
+                                <td class="col-sm-8">{{"-" + device.Status.RSSI}}</td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-4">温度</td>
+                                <td class="col-sm-8">{{device.Status.Temperature}}</td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-4">硬件版本</td>
+                                <td class="col-sm-8">{{device.Options.Revision}}</td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-4">固件版本</td>
+                                <td class="col-sm-8">
+                                    {{device.Status.FirmwareMajor+"."+device.Status.FirmwareMinor+"."+device.Status.FirmwareRevision}}
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- <table class="table">
+							 <caption><h3 class="text-center">睡眠管理</h3></caption>
+							 <tr>
+								 <td class="col-sm-4">时期</td>
+								 <td class="col-sm-8"><select ng-options="" class="form-control"></select></td>
+							 </tr>
+						 </table>-->
+                        <table class="table">
+                            <caption><h3 class="text-center">设备处理</h3></caption>
+                            <tr>
+                                <td class="col-sm-4">自动更新固件</td>
+                                <td class="col-sm-8">
+                                    <input type="checkbox" ng-true-value="true" ng-false-value="false" ng-model="device.Options.AutoFlash">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-4">自动更新启动器</td>
+                                <td class="col-sm-8">
+                                    <input type="checkbox" ng-true-value="true" ng-false-value="false" ng-model="device.Options.AutoBootFlash">
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table">
+                            <caption><h3 class="text-center">会话</h3></caption>
+                            <tr>
+                                <td class="col-sm-4">渲染方式</td>
+                                <td class="col-sm-8">
+                                    <select class="form-control" ng-model="session.Backend.Name" ng-options="backend.value as backend.label for backend in backends">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr ng-show="session.Backend.Name=='HTML'">
+                                <td class="col-sm-4">应用</td>
+                                <td class="col-sm-8">
+                                    <select class="form-control" ng-model="session.Backend.Fields.url" ng-options="app.Url as app.Name for app in apps"></select>
+                                </td>
+                            </tr>
+                            <tr ng-show="session.Backend.Name=='HTML'">
+                                <td class="col-sm-4">页面自动加载(0表示不设置)</td>
+                                <td class="col-sm-8"><input type="number" class="form-control" /></td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-4">默认抖动</td>
+                                <td class="col-sm-8">
+                                    <select class="form-control" ng-model="session.Options.DefaultDithering" ng-options="dithering for dithering in ditherings"></select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-4">默认灰度</td>
+                                <td class="col-sm-8">
+                                    <select class="form-control" ng-model="session.Options.DefaultEncoding" ng-options="encoding for encoding in encodings"></select>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table">
+                            <thead>
+                            <caption><h3 class="text-center">显示</h3></caption>
+                            </thead>
+                            <tr>
+                                <td class="col-sm-4">显示类型</td>
+                                <td class="col-sm-8">
+                                    <input type="text" value="6'' E Ink" readonly ng-show="device.Displays[0].Width==800">
+                                    <input type="text" value="6'' E Ink(V Tablet 2)" readonly ng-show="device.Displays[0].Width==1024">
+                                    <input type="text" value="9.7'' E Ink" readonly ng-show="device.Displays[0].Width==1200">
+                                    <input type="text" value="10.7'' Plastic Logic" readonly ng-show="device.Displays[0].Width==1280">
+                                    <input type="text" value="13.3'' E Ink" readonly ng-show="device.Displays[0].Width==1600">
+                                    <input type="text" value="32'' E Ink" readonly ng-show="device.Displays[0].Width==1440">
+                                    <input type="text" value="32'' E Ink Color" readonly ng-show="device.Displays[0].Width==720">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-4">旋转角度</td>
+                                <td class="col-sm-8">
+                                    <select ng-options = "rotation.value as rotation.label for rotation in rotations" ng-model="device.Displays[0].Rotation">
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </uib-tab>
+                <uib-tab classes="tabItem" heading="设备配置" index="1">
+                    <hr>
+                    <div class="uib-content">
+                        Device Configuration
+                    </div>
+                </uib-tab>
+                <uib-tab classes="tabItem" heading="实时视图" index="2">
+                    <hr>
+                    <div class="uib-content">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h6 class="caption text-center">设备</h6>
+                                <div class="thumbnail">
+                                    <img ng-src="{{clientImgPath}}" err-src="images/backImg/no-image.png"/>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <h6 class="caption text-center">服务器</h6>
+                                <div class="thumbnail">
+                                    <img ng-src="{{serverImgPath}}" err-src="images/backImg/no-image.png"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </uib-tab>
+                <uib-tab classes="tabItem" heading="图表" index="3">
+                    <hr>
+                    <div class="btn-group">
+                        <button class="btn btn-default">信号强度</button>
+                        <button class="btn btn-default">电量</button>
+                        <button class="btn btn-default">温度</button>
+                        <button class="btn btn-default">扩展温度</button>
+                        <button class="btn btn-default">断连</button>
+                        <button class="btn btn-default">图片</button>
+                        <button class="btn btn-default">数据传输</button>
+
+                    </div>
+                    <select ng-model="period" ng-options="period for period in periods" ng-change="drawCharts(period)"></select>
+                    <hr>
+                    <div class="uib-content">
+                        <canvas id="signalChart" width="400px" height="150px"></canvas>
+                        <canvas id="batteryChart" width="400px" height="150px"></canvas>
+                        <canvas id="tempChart" width="400px" height="150px"></canvas>
+                        <canvas id="extTempChart" width="400px" height="150px"></canvas>
+                        <canvas id="disconChart" width="400px" height="150px"></canvas>
+                        <canvas id="imagesChart" width="400px" height="150px"></canvas>
+                        <canvas id="transferChart" width="400px" height="150px"></canvas>
+                    </div>
+                </uib-tab>
+                <!--<uib-tab classes="tabItem" heading="事件" index="4">
+                    <hr>
+                    <div class="uib-content">
+                        Events
+                    </div>
+                </uib-tab>-->
+            </uib-tabset>
+        </div>
+        <div class="box-footer">
+            <div class="btn-group">
+                <button type="button" class="btn btn-danger" ng-click="deleteDevice()">删除设备</button>
+                <button type="button" class="btn btn-danger" ng-click="rebootDevice()">重启设备</button>
+                <button type="button" class="btn btn-danger" ng-click="restartSession()">重启会话</button>
+                <button type="button" class="btn btn-danger" ng-click="clearWebCache()">清除缓存</button>
+            </div>
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-default" ng-click="close()">关闭</button>
+                <button type="button" class="btn btn-primary" ng-click="save()">提交</button>
+            </div>
+        </div>
+    </div>
 </script>

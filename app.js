@@ -28,6 +28,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//过滤器模块
+// app.use(function(req, res, next){
+// 	var session = req.getSession();
+// 	if(session == null){
+// 		res.redirect('public/templates/login.html');
+// 	}else{
+// 		next();
+// 	}
+// });
+
 app.use('/', indexController);
 app.use('/', statusController);
 app.use('/', devicesController);

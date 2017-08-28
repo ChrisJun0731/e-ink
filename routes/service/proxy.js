@@ -112,19 +112,19 @@ var proxy = function(request, response){
 		if(request.query.id != null){
 			path = request._parsedUrl.pathname + request.query.id;
 		}
-		if(request.query.uuidArray != null){
-			var uuidArray = request.query.uuidArray;
-			var isArray = Array.isArray(uuidArray);
-			if(isArray){
-				for(i in uuidArray){
-					path += uuidArray[i] + ',';
-				}
-				path = path.slice(0, -1);
-			}
-			else{
-				path += uuidArray;
-			}
-		}
+		// if(request.query.uuidArray != null){
+		// 	var uuidArray = request.query.uuidArray;
+		// 	var isArray = Array.isArray(uuidArray);
+		// 	if(isArray){
+		// 		for(i in uuidArray){
+		// 			path += uuidArray[i] + ',';
+		// 		}
+		// 		path = path.slice(0, -1);
+		// 	}
+		// 	else{
+		// 		path += uuidArray;
+		// 	}
+		// }
 		return path;
 	};
 
@@ -137,19 +137,19 @@ var proxy = function(request, response){
 		if(request.query.from != null & request.query.to != null){
 			path += '?from=' + request.query.from + '&to=' + request.query.to;
 		}
-		if(request.query.uuidArray != null){
-			var uuidArray = request.query.uuidArray;
-			var isArray = Array.isArray(uuidArray);
-			if(isArray){
-				for(i in uuidArray){
-					path += uuidArray[i] + ',';
-				}
-				path = path.slice(0, -1);
-			}
-			else{
-				path += uuidArray;
-			}
-		}
+		// if(request.query.uuidArray != null){
+		// 	var uuidArray = request.query.uuidArray;
+		// 	var isArray = Array.isArray(uuidArray);
+		// 	if(isArray){
+		// 		for(i in uuidArray){
+		// 			path += uuidArray[i] + ',';
+		// 		}
+		// 		path = path.slice(0, -1);
+		// 	}
+		// 	else{
+		// 		path += uuidArray;
+		// 	}
+		// }
 		return path;
 	}
 };

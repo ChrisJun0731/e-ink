@@ -32,22 +32,22 @@ router.get('/api/devicestatus/', function(req, res){
 	proxy.forwardGetRequest();
 });
 
-router.post('/api/device/reboot/', function(req, res){
+router.post('/api/device/:uuid/reboot/', function(req, res){
 	var proxy = new Proxy(req, res);
 	proxy.forwardPostRequest();
 });
 
-router.post('/api/session/restart/', function(req, res){
+router.post('/api/session/:uuid/restart/', function(req, res){
 	var proxy = new Proxy(req, res);
 	proxy.forwardPostRequest();
 });
 
-router.post('/api/session/webkit-clear-cache/', function(req, res){
+router.post('/api/session/:uuid/webkit-clear-cache/', function(req, res){
 	var proxy = new Proxy(req, res);
 	proxy.forwardPostRequest();
 });
 
-router.delete('/api/device/', function(req, res){
+router.delete('/api/device/:uuid', function(req, res){
 	var proxy = new Proxy(req, res);
 	proxy.forwardDelRequest();
 });

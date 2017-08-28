@@ -28,32 +28,36 @@ define(['app'], function(app){
 				});
 				return promise;
 			},
-			deleteDevices: function(config){
+			deleteDevice: function(config){
 				var promise = $http.delete('/api/device/', config).then(function(response){
 					return response;
 				});
 				return promise;
 			},
-			rebootDevices: function(data){
-				var promise = $http.post('/api/device/reboot', data).then(function(response){
+			rebootDevice: function(uuid){
+				var url = '/api/device/'+ uuid + '/reboot';
+				var promise = $http.post(url).then(function(response){
 					return response;
 				});
 				return promise;
 			},
-			restartSessions: function(data){
-				var promise = $http.post('/api/session/restart', data).then(function(response){
+			restartSession: function(uuid){
+				var url = '/api/session/'+ uuid + '/restart';
+				var promise = $http.post(url).then(function(response){
 					return response;
 				});
 				return promise;
 			},
-			clearWebCaches: function(data){
-				var promise = $http.post('/api/session/webkit-clear-cache', data).then(function(response){
+			clearWebCache: function(uuid){
+				var url = '/api/session/'+ uuid + '/webkit-clear-cache';
+				var promise = $http.post(url).then(function(response){
 					return response;
 				});
 				return promise;
 			},
-			deleteDevices: function(config){
-				var promise = $http.delete('/api/device/', config).then(function(response){
+			deleteDevice: function(uuid){
+				var url = '/api/device/'+ uuid;
+				var promise = $http.delete(url).then(function(response){
 					return response;
 				});
 				return promise;

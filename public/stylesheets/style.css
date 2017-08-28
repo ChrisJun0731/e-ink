@@ -170,20 +170,20 @@ body{
 }
 
 /*设备状态，box*/
-.box{
-    width:195px;
-    height:auto;
-    float:left;
-    margin:12px;
-    text-align: center;
-}
-.box .box-header h4{
-    font-size:14px;
-    opacity: 0.6;
-}
-.box h2{
-    margin-top:2px;
-}
-.box-footer small{
-    font-size:14px;
-}
+/*.box{*/
+    /*width:195px;*/
+    /*height:auto;*/
+    /*float:left;*/
+    /*margin:12px;*/
+    /*text-align: center;*/
+/*}*/
+/*.box .box-header h4{*/
+    /*font-size:14px;*/
+    /*opacity: 0.6;*/
+/*}*/
+/*.box h2{*/
+    /*margin-top:2px;*/
+/*}*/
+/*.box-footer small{*/
+    /*font-size:14px;*/
+/*}*/

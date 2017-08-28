@@ -1,55 +1,48 @@
 <section>
-	<table class="table">
-		<thead>
-		<tr>
-			<th>Username</th>
-			<th>Password</th>
-			<th>Enabled</th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr ng-repeat="user in users" ng-if="user.IsAPI==false">
-			<td>
-				<span editable-text="user.Username" edit-disabled="true" e-name="Username" e-form="rowform">
-					{{user.Username||'empty'}}
-				</span>
-			</td>
-			<td>
-				<span editable-password="user.Password" e-name="Password" e-form="rowform">
-					  ......
-				</span>
-			</td>
-			<td>
-				<a href="#" editable-checkbox="user.IsActive" buttons="no" e-name="IsActive" e-form="rowform">
-					{{user.IsActive && "已激活" || "已禁用"}}
-				</a>
-			</td>
-			<td>
-				<a href="#" editable-text="user.IsAPI" buttons="no" e-name="IsAPI" e-form="rowform"></a>
-			</td>
-			<td>
-				<a href="#" editable-text="user.IsNew" buttons="no" e-name="IsNew" e-form="rowform"></a>
-			</td>
-			<td style="white-space:nowrap">
-				<form editable-form name="rowform" onbeforesave="saveOrUpdateUser($data, $index)" ng-show="rowform.$visible" class="form-buttons form-inline">
-					<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
-						save
-					</button>
-					<button type="button" ng-disabled="rowform.$waiting" class="btn btn-default">
-						cancel
-					</button>
-				</form>
-				<div class="buttons" ng-show="!rowform.$visible">
-					<button type="button" class="btn btn-primary" ng-click="rowform.$show()">
-						edit
-					</button>
-					<button type="button" class="btn btn-danger" ng-click="removeUser($index)">
-						del
-					</button>
-				</div>
-			</td>
-		</tr>
-		</tbody>
-	</table>
-	<button type="button" class="btn btn-info pull-right" ng-click="addUser()">Add User</button>
+  <table class="table table-hover">
+    <thead>
+    <tr class="table-heading">
+      <th>用户名</th>
+      <th>密码</th>
+      <th>可用</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="user in users" ng-if="user.IsAPI==false">
+      <td class="col-md-3">
+        <span editable-text="user.Username" e-name="username" edit-disabled="true" e-form="rowform">{{user.Username||'empty'}}</span>
+      </td>
+      <td class="col-md-6">
+        <span editable-password="user.Password" e-name="password" e-form="rowform">......</span>
+      </td>
+      <td class="col-md-1">
+        <a href="#" editable-checkbox="user.IsActive" buttons="no" e-form="rowform">{{user.IsActive && "已激活" || "已禁用"}}</a>
+      </td>
+      <td style="white-space:nowrap">
+        <form editable-form name="rowform" onbeforesave="saveOrUpdateUser($data, user._id)" ng-show="rowform.$visible" class="form-buttons form-inline pull-right">
+          <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+            保存
+          </button>
+          <button type="button" ng-disabled="rowform.$waiting" class="btn btn-default" ng-click="rowform.$cancel()">
+            取消
+          </button>
+        </form>
+        <div class="buttons pull-right" ng-show="!rowform.$visible">
+          <button type="button" class="btn btn-primary" ng-click="rowform.$show()">
+            编辑
+          </button>
+          <button type="button" class="btn btn-danger" ng-click="removeUser($index)">
+            删除
+          </button>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="bottomBtn">
+    <div class="btn-group pull-right mr mt">
+      <button type="button" class="btn btn-default" ng-click="addUser()">添加</button>
+    </div>
+  </div>
 </section>
