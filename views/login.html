@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>墨水屏电子公交信息发布系统</title>
+    <style>
+        .form-control{
+            background-color: #d3d3d3;
+        }
+        .container input{
+            font-size:18px;
+            height:40px;
+        }
+        .loginContent{
+            float:right;
+            text-align: center;
+            padding:140px 0 60px 50px;
+            margin:60px 42px 0 0;
+            background-color: white;
+        }
+        .container .loginIcon{
+            width:180px;
+            position: fixed;
+            top:4px;
+            left:940px;
+            z-index:100;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <img src="/images/backImg/loginBack.png" style="width:100%;height: 100%;position: fixed;left:0;top:0;z-index:-100;">
+    <div class="row">
+        <img class="loginIcon" src="/images/backImg/loginIcon.png">
+        <form action="/login" method="post">
+            <div class="col-md-4 loginContent">
+                <div class="col-md-10">
+                    <h3><strong>用户登录</strong></h3>
+                    <br />
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="用户名"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="密码"/>
+                    </div>
+                    <input type="submit" class="btn btn-block btn-primary" value="提交">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

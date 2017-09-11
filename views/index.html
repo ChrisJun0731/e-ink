@@ -3,35 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <title>智能公交电子站牌--管理平台</title>
-	<link type="text/css" rel="stylesheet" href="stylesheets/bootstrap.css">
-	<link type="text/css" rel="stylesheet" href="stylesheets/AdminLTE.css">
+  <link type="text/css" rel="stylesheet" href="stylesheets/bootstrap.css">
+  <link type="text/css" rel="stylesheet" href="stylesheets/AdminLTE.css">
   <link type="text/css" rel="stylesheet" href="stylesheets/font-awesome/css/font-awesome.css">
   <link type="text/css" rel="stylesheet" href="stylesheets/xeditable.css">
   <link type="text/css" href="stylesheets/style.css" rel="stylesheet">
   <link type="text/css" rel="stylesheet" href="stylesheets/angular-toastr.css">
+
   <script type="text/javascript" defer async="true" data-main="javascripts/main.js" src="javascripts/plugins/require.js"></script>
 </head>
 <body>
-<div class="container">
-  <div class="row">
-    <div class="col-lg-3 col-md-3  leftTab">
-      <ul class="nav nav-stacked navLeft">
-        <li><a ui-sref="status"><img src="images/btnImg/nav.png" alt="后台管理系统"></a></li>
-        <li class="active"><a ui-sref="status"><img src="images/btnImg/status.png" alt="状态"></a></li>
-        <li><a ui-sref="devices"><img src="images/btnImg/device.png" alt="设备"></a></li>
-        <li><a ui-sref="apps"><img src="images/btnImg/app.png" alt="应用"></a></li>
-        <li><a ui-sref="users"><img src="images/btnImg/user.png" alt="用户"></a></li>
-        <li><a ui-sref="settings"><img src="images/btnImg/setting.png" alt="设置"></a></li>
-        <li class="logout"><a href="#"><img src="images/btnImg/exit.png" alt="退出"></a></li>
-      </ul>
-    </div>
-    <div class="col-lg-9 col-md-9">
-      <div class="content" ui-view="container"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-3  leftTab">
+        <ul class="nav nav-stacked navLeft">
+          <li><img src="images/btnImg/nav.png" alt="后台管理系统"></li>
+          <li><a class="active" ui-sref="status"><img src="images/btnImg/status.png" alt="状态"></a></li>
+          <li><a ui-sref="devices"><img src="images/btnImg/device.png" alt="设备"></a></li>
+          <li><a ui-sref="apps"><img src="images/btnImg/app.png" alt="应用"></a></li>
+          <li><a ui-sref="users"><img src="images/btnImg/user.png" alt="用户"></a></li>
+          <li><a ui-sref="settings"><img src="images/btnImg/setting.png" alt="设置"></a></li>
+          <li class="logout"><img src="images/btnImg/exit.png" alt="退出"></li>
+        </ul>
+      </div>
+      <div class="col-lg-9 col-md-9">
+        <div class="content" ui-view="container"></div>
+      </div>
     </div>
   </div>
-</div>
-<script>
 
-</script>
+
+
+  <script type="text/javascript" src="javascripts/plugins/jquery.js"></script>
+  <script type="text/javascript" src="javascripts/plugins/app.js"></script>
 </body>
 </html>

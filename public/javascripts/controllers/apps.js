@@ -45,7 +45,7 @@ define(['services/appsService'], function(){
 				Url: '',
 				Description: ''
 			};
-			$scope.apps.push($scope.newApp);
+			$scope.apps.push(app);
 		};
 	}];
 });

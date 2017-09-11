@@ -1,9 +1,27 @@
-/*共有样式*/
+/*鍏辨湁鏍峰紡*/
+div,p,h1,h2,h3,h4,span{
+    margin:0;
+    padding:0;
+}
+table > thead > th,
+table > tbody > tr > td{
+    margin:0 !important;
+    padding:0 !important;
+}
 .mr{
     margin-right:300px;
 }
+.mr10{
+    margin-right:10px;
+}
 .mt{
     margin-top:8px;
+}
+.fr{
+    float:right;
+}
+.fl{
+    float:left;
 }
 h3{
     padding-left:8px;
@@ -15,7 +33,7 @@ h4{
 .form-horizontal .control-label {
     text-align: left;
 }
-
+/*提示控件，图片设置*/
 .message-tip{
     width:35px;
     height:35px;
@@ -24,58 +42,65 @@ h4{
     background-size: 30px 30px;
     cursor:pointer;
 }
-/*样式*/
+/*鏍峰紡*/
 body{
     margin:0;
     padding:0;
-    font-size:18px;
+    font-size:16px;
+    font-weight: lighter;
 }
 .container{
+    position: fixed;
     width:100%;
     height:100%;
 }
+
+/*左侧边栏*/
 .container .leftTab{
     position: absolute;
-    width:234px;
+    width:200px;
     top:0;
     bottom:0;
-    text-align: center;
+    padding:0;
     background-color: #00a7ea;
     z-index:1;
-}
-.container ul li img{
-    width:197px;
-    height:48px;
 }
 .container ul li:hover{
     cursor: pointer;
 }
-.nav > li > a{
-    padding:1px 1px 1px 2px;
-    border:2px;
-    border-left:3px;
+.leftTab .navLeft{
+    position: relative;
+    width:200px;
+}
+.navLeft > li  img{
+    width:200px;
+}
+.navLeft > li{
+    margin:0;
+    padding:0;
+    overflow: hidden;
+}
+.navLeft > li > a{
+    width:210px;
+    height:48px;
+    line-height: 48px;
+    padding:0;
+}
+.navLeft > li > a:hover{
+    opacity: 0.8;
     background-color: transparent;
 }
-.navLeft > li > a:hover,
-.navLeft > li > a:focus {
-    border: 1px solid white;
-    background-color: transparent;
-    border-left:2px solid #0d95cb;
+.navLeft > li > .active{
+    top:-48px;
 }
-.navLeft > li.active > a:hover,
-.navLeft > li.active > a:focus {
-    border: 1px solid white;
-    background-color: transparent;
-    border-left:2px solid #0d95cb;
-}
-/*.nav > .active > a{
-    border: 1px solid white;
-    border-left:2px solid #0d95cb;
-}*/
+/*退出按钮底部设置*/
 .container ul .logout{
     position: fixed;
+    width:200px;
     bottom:0;
 }
+
+/*右侧内容设置*/
 .container .content{
     position: fixed;
     width:100%;
@@ -83,7 +108,7 @@ body{
     bottom:0;
     margin-top:-15px;
     padding-right:10px;
-    padding-left:219px;
+    padding-left:185px;
 }
 .table-heading{
     font-size:16px;
@@ -94,31 +119,36 @@ body{
     background-color:#eee;
 }
 /*
-    设备详情样式页修改
+    璁惧璇︽儏鏍峰紡椤典慨鏀?
 */
-/*在模态框里创建uib-tabset , table */
+/*鍦ㄦā鎬佹閲屽垱寤簎ib-tabset , table */
 .modal-body .uib-content{
     width:100%;
     height:435px;
     overflow-y: scroll;
 }
-.modal-body .tabItem{
+.deviceTab .tabItem{
     width:150px;
     height:35px;
-    line-height: 35px;
     border: 1px solid #dddddd;
     background-color: #eeeeee;
     border-radius: 10px;
     margin:3px 10px;
     text-align:center;
 }
-.modal-body .nav > li > a,
-.modal-body .nav > li > a:hover{
+.deviceTab .nav > li >a{
+    width:150px;
+    height:35px;
+    line-height: 35px;
+    padding:0;
+}
+.deviceTab .nav > li > a,
+.deviceTab .nav > li > a:hover{
     border-radius: 10px;
 }
-.modal-body .nav > li.active > a,
-.modal-body .nav > li.active > a:hover,
-.modal-body .nav > li.active > a:focus {
+.deviceTab .nav > li.active > a,
+.deviceTab .nav > li.active > a:hover,
+.deviceTab .nav > li.active > a:focus {
     color: #fff;
     cursor: default;
     background-color: #0d95cb;
@@ -130,6 +160,8 @@ body{
     background-repeat:no-repeat;
     background-size: 100% 100%;
 }*/
+
+/*内容底部操作按钮的设置*/
 .container .bottomBtn{
     position: fixed;
     bottom:0;
@@ -153,10 +185,20 @@ body{
     overflow-y: scroll;
     overflow-x: hidden;
 }
-/*设置页面部分样式*/
+/*璁剧疆椤甸潰閮ㄥ垎鏍峰紡*/
+.content .contentList{
+    display:block;
+    height:535px;
+    overflow-y: scroll;
+}
+.content table thead,tbody tr{
+    display: table;
+    width:100%;
+    table-layout: fixed;
+}
 .content .setting{
     position:fixed;
-    width:calc(100% - 234px);
+    width:calc(100% - 198px);
     bottom:50px;
     top:48px;
     padding:4px 10px;
@@ -169,21 +211,65 @@ body{
     text-align: center;
 }
 
-/*设备状态，box*/
-/*.box{*/
-    /*width:195px;*/
-    /*height:auto;*/
-    /*float:left;*/
-    /*margin:12px;*/
-    /*text-align: center;*/
-/*}*/
-/*.box .box-header h4{*/
-    /*font-size:14px;*/
-    /*opacity: 0.6;*/
-/*}*/
-/*.box h2{*/
-    /*margin-top:2px;*/
-/*}*/
-/*.box-footer small{*/
-    /*font-size:14px;*/
-/*}*/
+/*状态部分，盒子模型样式*/
+.box{
+    width:195px;
+    height:auto;
+    float:left;
+    margin:12px;
+    text-align: center;
+    box-shadow: 0 3px 3px #a9a9a9;
+}
+.box .box-header h4{
+    font-size:14px;
+    opacity: 0.6;
+}
+.box h2{
+    margin-top:2px;
+}
+.box-header.with-border {
+    border-bottom: 1px solid #ddd;
+}
+.box-footer{
+    border-top: 1px solid #ddd;
+}
+.box-footer small{
+    font-size:14px;
+}
+/*在线，离线  其他状态*/
+.state{
+    display: block;
+    width:60px;
+    height:30px;
+    color:white;
+    text-align: center;
+    border-radius: 5px;
+    opacity:0.8;
+}
+.conn{
+    background-color: #00ff33;
+}
+.disConn{
+    background-color: #d43f3a;
+}
+.otherState{
+    background-color: #ffcc66;
+}
+/*设备详情中的配置页面样式
+ *按钮右侧图标提示样式类
+*/
+.tabHead button{
+    padding:10px;
+    font-size:16px;
+}
+.tabHead ul li{
+    text-align: center;
+    margin:10px;
+    font-size:16px;
+}
+.tabHead ul > li >a:hover,
+.tabHead ul > li >a:focus{
+    cursor:pointer;
+    color:#fff;
+    background-color: #0d95cb;
+}

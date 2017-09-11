@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 var ejs = require('ejs');
 
 var indexController = require('./routes/controller/indexController');
@@ -27,16 +28,25 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+	secret: new Date().toDateString(),
+	cookie: {maxAge: 60* 1000 * 30},
+	resave: true,
+	saveUninitialized: false
+}));
 
 //过滤器模块
-// app.use(function(req, res, next){
-// 	var session = req.getSession();
-// 	if(session == null){
-// 		res.redirect('public/templates/login.html');
-// 	}else{
-// 		next();
-// 	}
-// });
+app.use(function(req, res, next){
+	if(!req.session.user){
+		if(req.url == "/login"){
+			next();
+		}else{
+			res.redirect('/login');
+		}
+	}else{
+		next();
+	}
+});
 
 app.use('/', indexController);
 app.use('/', statusController);

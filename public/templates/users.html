@@ -17,7 +17,7 @@
         <span editable-password="user.Password" e-name="password" e-form="rowform">......</span>
       </td>
       <td class="col-md-1">
-        <a href="#" editable-checkbox="user.IsActive" buttons="no" e-form="rowform">{{user.IsActive && "已激活" || "已禁用"}}</a>
+        <a href="" editable-checkbox="user.IsActive" buttons="no" e-form="rowform">{{user.IsActive && "已激活" || "已禁用"}}</a>
       </td>
       <td style="white-space:nowrap">
         <form editable-form name="rowform" onbeforesave="saveOrUpdateUser($data, user._id)" ng-show="rowform.$visible" class="form-buttons form-inline pull-right">

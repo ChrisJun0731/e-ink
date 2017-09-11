@@ -3,24 +3,25 @@
     <thead>
     <tr class="table-heading">
       <th>名称</th>
-      <th>Url地址</th>
+      <th class="col-md-6">Url地址</th>
       <th>描述</th>
       <th></th>
     </tr>
     </thead>
-    <tbody>
+    <tbody class="contentList">
     <tr ng-repeat="app in apps">
       <td>
-        <span editable-text="app.Name" e-name="name" e-form="rowform">{{app.Name||'empty'}}</span>
+        <span editable-text="app.Name" e-class="form-control" e-name="name" e-form="rowform">{{app.Name||'empty'}}</span>
+      </td>
+      <td class="col-md-6">
+        <span editable-text="app.Url" e-class="form-control"  e-name="url" e-form="rowform">{{app.Url||'empty'}}</span>
       </td>
       <td>
-        <span editable-text="app.Url" e-name="url" e-form="rowform">{{app.Url||'empty'}}</span>
-      </td>
-      <td>
-        <span editable-text="app.Description" e-name="description" e-form="rowform">{{app.Description||'empty'}}</span>
+        <span editable-text="app.Description" e-class="form-control" e-name="description" e-form="rowform">{{app.Description||'empty'}}</span>
       </td>
       <td style="white-space: nowrap">
-        <form editable-form name="rowform" onbeforesave="saveApp($data, app._id)" ng-show="rowform.$visible" class="form-buttons pull-right form-inline">
+        <form editable-form name="rowform" onbeforesave="saveApp($data, app._id)" ng-show="rowform.$visible"
+              class="form-buttons pull-right form-inline" shown="inserted==app">
           <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
             保存
           </button>
