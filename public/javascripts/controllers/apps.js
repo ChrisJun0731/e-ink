@@ -40,12 +40,12 @@ define(['services/appsService'], function(){
 		};
 
 		$scope.addApp = function(){
-			var app = {
+			$scope.AddApp = {
 				Name: '',
 				Url: '',
 				Description: ''
 			};
-			$scope.apps.push(app);
+			$scope.apps.push($scope.AddApp);
 		};
 	}];
 });

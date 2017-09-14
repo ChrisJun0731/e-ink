@@ -10,14 +10,14 @@ define(['services/usersService'], function(){
 			oldUsers = $scope.users;
 		});
 		$scope.addUser = function(){
-			var user = {
+			$scope.AddUser = {
 				Username: '',
 				Password: '',
 				IsActive: true,
 				IsAPI: false,
 				IsNew: true
 			};
-			$scope.users.push(user);
+			$scope.users.push($scope.AddUser);
 		};
 		$scope.removeUser = function(index){
 			usersService.deleteUser({params:{id: $scope.users[index].Username}}).then(function(rs){

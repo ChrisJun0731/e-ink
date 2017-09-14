@@ -14,21 +14,6 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 
 		setInterval($scope.getDevices, 5000);
 
-		// $scope.selectAllDevice = function(){
-		// 	if($scope.all_flag == false){
-		// 		angular.forEach($scope.devices, function(device){
-		// 			device.selected = true;
-		// 		});
-		// 		$scope.all_flag = true;
-		// 	}
-		// 	else{
-		// 		angular.forEach($scope.devices, function(device){
-		// 			device.selected = false;
-		// 		});
-		// 		$scope.all_flag = false;
-		// 	}
-		// };
-
 		$scope.openDeviceModal = function(size, index){
 			var uibModalInstance = $uibModal.open({
 				templateUrl: 'deviceModal.html',
@@ -135,11 +120,16 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 				devicesService.saveDevice(device, {params:{id: device.Uuid}}).then(function(rs){
 					if(rs.status == 204){
 						toastr.success('设备状态和设置保存成功！');
+					}else{
+						toastr.error("设备状态和设置保存失败!");
 					}
 				});
 				devicesService.saveSession(session, {params:{id: session.Uuid}}).then(function(rs){
 					if(rs.status == 204){
 						toastr.success('设备会话保存成功！');
+					}else{
+						toastr.error("设备会话保存失败!");
+
 					}
 				});
 			};

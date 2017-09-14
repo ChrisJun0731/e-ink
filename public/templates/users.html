@@ -2,9 +2,9 @@
   <table class="table table-hover">
     <thead>
     <tr class="table-heading">
-      <th>用户名</th>
-      <th>密码</th>
-      <th>可用</th>
+      <th class="col-md-3">用户名</th>
+      <th class="col-md-6">密码</th>
+      <th class="col-md-1">可用</th>
       <th></th>
     </tr>
     </thead>
@@ -20,7 +20,7 @@
         <a href="" editable-checkbox="user.IsActive" buttons="no" e-form="rowform">{{user.IsActive && "已激活" || "已禁用"}}</a>
       </td>
       <td style="white-space:nowrap">
-        <form editable-form name="rowform" onbeforesave="saveOrUpdateUser($data, user._id)" ng-show="rowform.$visible" class="form-buttons form-inline pull-right">
+        <form editable-form name="rowform" onbeforesave="saveOrUpdateUser($data, user._id)" ng-show="rowform.$visible" class="form-buttons form-inline pull-right" shown = "AddUser==user">
           <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
             保存
           </button>

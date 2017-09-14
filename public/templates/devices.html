@@ -2,30 +2,30 @@
     <table class="table table-hover">
         <thead>
         <tr class="table-heading">
-            <th><input type="checkbox" ng-click="selectAllDevice()" ng-init="all_flag=false">&nbsp;#</th>
-            <th>名称/UUID</th>
+            <th ><input type="checkbox" ng-click="selectAllDevice()" ng-init="all_flag=false">&nbsp;#</th>
+            <th class="col-md-4">名称/UUID</th>
             <th>电量</th>
             <th>状态</th>
             <th>信号强度</th>
             <th>连接方式</th>
             <th>固件版本</th>
-            <th>硬件版本</th>
+            <th class="col-md-1">硬件版本</th>
             <th></th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="contentList">
         <tr ng-repeat="device in devices">
             <td>
                 <input type="checkbox" ng-true-value="true" ng-false-value="false" ng-modal="device.selected" >&nbsp;{{$index+1}}
             </td>
-            <td>{{device.Options.Name||device.Uuid}}</td>
+            <td class="col-md-4">{{device.Options.Name||device.Uuid}}</td>
             <td>{{device.Status.Battery+"%"}}</td>
-            <td>{{device.State}}</td>
-            <td>{{"-"+ device.Status.RSSI}}</td>
-            <td>{{device.connectivity}}</td>
-            <td>{{device.Status.FirmwareMajor+"."+device.Status.FirmwareMinor+"."+device.Status.FirmwareRevision}}</td>
-            <td>{{device.Options.Revision}}</td>
-            <td><button type="button" class="btn btn-info" ng-click="openDeviceModal('lg', $index)">查看</button></td>
+            <td><span class="state" ng-class="{'conn':device.State=='online','disConn':device.State=='offline','otherState':device.State!='online'&&device.State!='offline'}">{{device.State}}</span></td>
+            <td class="text-center">{{"-"+ device.Status.RSSI}}</td>
+            <td class="text-center">{{device.connectivity}}</td>
+            <td class="text-center">{{device.Status.FirmwareMajor+"."+device.Status.FirmwareMinor+"."+device.Status.FirmwareRevision}}</td>
+            <td class="text-center">{{device.Options.Revision}}</td>
+            <td class="text-center"><button type="button" class="btn btn-info" ng-click="openDeviceModal('lg', $index)">查看</button></td>
         </tr>
         </tbody>
     </table>
@@ -40,7 +40,7 @@
                 <button class="btn btn-box-tool" ng-click="close()"><i class="fa fa-times fa-2x"></i></button>
             </div>
         </div>
-        <div class="box-body">
+        <div class="box-body deviceTab">
             <uib-tabset active="0" type="pills">
                 <uib-tab classes="tabItem" heading="状态&设置" index="0">
                     <hr>
@@ -135,19 +135,19 @@
                             <tr>
                                 <td class="col-sm-4">显示类型</td>
                                 <td class="col-sm-8">
-                                    <input type="text" value="6'' E Ink" readonly ng-show="device.Displays[0].Width==800">
-                                    <input type="text" value="6'' E Ink(V Tablet 2)" readonly ng-show="device.Displays[0].Width==1024">
-                                    <input type="text" value="9.7'' E Ink" readonly ng-show="device.Displays[0].Width==1200">
-                                    <input type="text" value="10.7'' Plastic Logic" readonly ng-show="device.Displays[0].Width==1280">
-                                    <input type="text" value="13.3'' E Ink" readonly ng-show="device.Displays[0].Width==1600">
-                                    <input type="text" value="32'' E Ink" readonly ng-show="device.Displays[0].Width==1440">
-                                    <input type="text" value="32'' E Ink Color" readonly ng-show="device.Displays[0].Width==720">
+                                    <input type="text" class="form-control" value="6'' E Ink" readonly ng-show="device.Displays[0].Width==800">
+                                    <input type="text" class="form-control" value="6'' E Ink(V Tablet 2)" readonly ng-show="device.Displays[0].Width==1024">
+                                    <input type="text" class="form-control" value="9.7'' E Ink" readonly ng-show="device.Displays[0].Width==1200">
+                                    <input type="text" class="form-control" value="10.7'' Plastic Logic" readonly ng-show="device.Displays[0].Width==1280">
+                                    <input type="text" class="form-control" value="13.3'' E Ink" readonly ng-show="device.Displays[0].Width==1600">
+                                    <input type="text" class="form-control" value="32'' E Ink" readonly ng-show="device.Displays[0].Width==1440">
+                                    <input type="text" class="form-control" value="32'' E Ink Color" readonly ng-show="device.Displays[0].Width==720">
                                 </td>
                             </tr>
                             <tr>
                                 <td class="col-sm-4">旋转角度</td>
                                 <td class="col-sm-8">
-                                    <select ng-options = "rotation.value as rotation.label for rotation in rotations" ng-model="device.Displays[0].Rotation">
+                                    <select class="form-control" ng-options = "rotation.value as rotation.label for rotation in rotations" ng-model="device.Displays[0].Rotation">
                                     </select>
                                 </td>
                             </tr>
@@ -155,6 +155,25 @@
                     </div>
                 </uib-tab>
                 <uib-tab classes="tabItem" heading="设备配置" index="1">
+                    <hr>
+                    <div class="tabHead" uib-dropdown>
+                        <button id="tabList" class="btn btn-primary" type="button" uib-dropdown-toggle ng-click=""><i class="fa fa-cube"></i>&nbsp;基础&nbsp;<span class="caret"></span></button>
+                        <button class="btn btn-primary" type="button" ng-click=""><i class="fa fa-cog"></i>&nbsp;全部</button>
+                        <button class="btn btn-primary fr mr10" type="button" ng-click=""><i class="fa fa-cloud-download"></i>&nbsp;云端读取</button>
+                        <button class="btn btn-primary fr mr10" type="button" ng-click=""><i class="fa fa-cloud-upload"></i>&nbsp;写入云端</button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="tabList">
+                            <li role="menuitem"><a ui-sref=""><i class="fa fa-cube"></i>&nbsp;基础</a></li>
+                            <li role="menuitem"><a ui-sref=""><i class="fa fa-mobile fa-lg"></i>&nbsp;设备</a></li>
+                            <li role="menuitem"><a ui-sref=""><i class="fa fa-desktop"></i>&nbsp;显示</a></li>
+                            <li role="menuitem"><a ui-sref=""><i class="fa fa-battery-full"></i>&nbsp;电池</a></li>
+                            <li role="menuitem"><a ui-sref=""><i class="fa fa-globe"></i>&nbsp;网络</a></li>
+                            <li role="menuitem"><a ui-sref=""><i class="fa fa-sitemap"></i>&nbsp;服务</a></li>
+                            <li role="menuitem"><a ui-sref=""><i class="fa fa-signal"></i>&nbsp;WiFi</a></li>
+                            <li role="menuitem"><a ui-sref=""><i class="fa fa-bolt fa-lg"></i>&nbsp;3G</a></li>
+                            <li class="divider"></li>
+                            <li role="menuitem"><a ui-sref=""><i class="fa fa-cog"></i>&nbsp;全部</a></li>
+                        </ul>
+                    </div>
                     <hr>
                     <div class="uib-content">
                         Device Configuration
