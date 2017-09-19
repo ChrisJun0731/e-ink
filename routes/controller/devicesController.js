@@ -57,7 +57,7 @@ router.put('/api/device/', function(req, res){
 	proxy.forwardPutRequest();
 });
 
-router.put('/api/session/', function(req, res){
+router.put('/api/session/:uuid', function(req, res){
 	var proxy = new Proxy(req, res);
 	proxy.forwardPutRequest();
 });

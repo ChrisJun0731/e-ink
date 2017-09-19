@@ -1,336 +1,343 @@
 <section>
-    <p class="table-heading">设置</p>
-    <div class="setting">
-        <form class="form-horizontal text-left" role="form">
-            <fieldset>
-                <h4>全局</h4>
-                <hr>
-                <div class="form-group">
-                    <label class="col-md-4 control-label tl">名称</label>
-                    <div class="col-md-7">
-                        <input type="text" class="form-control" ng-model="config.Global.DeploymentName">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">秘钥</label>
-                    <div class="col-md-7">
-                        <input type="text" class="form-control" ng-model="config.Global.DeploymentKey">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">特点</label>
-                    <label class="col-md-2">
-                        <input type="checkbox" class="" name="features" ng-model="sleepManager"
-                               ng-click="manipulateFeatures('sleep')">&nbsp;睡眠管理
-                    </label>
-                    <label class="col-md-2">
-                        <input type="checkbox" class="" name="features" ng-model="externalBattery"
-                               ng-click="manipulateFeatures('battery')">&nbsp;扩展电池
-                    </label>
-                    <label class="col-md-2">
-                        <input type="checkbox" class="" name="features" ng-model="statusRequester"
-                               ng-click="manipulateFeatures('status')">&nbsp;状态要求
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">时间域</label>
-                    <div class="col-md-7">
-                        <select class="form-control" name="timeZone">
-                            <option value="0">Africa/Abidjan</option>
-                            <option value="1">Africa/accra</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2 message-tip"
-                         data-toggle="popover"
-                         popover-title="时间域"
-                         popover-placement="left"
-                         popover-animation="true"
-                         uib-popover="选择时间区域以便你处理相关的问题（比如：图表）"
-                         popover-trigger="'mouseenter'">
-                    </div>
-                </div>
-            </fieldset>
+	<p class="table-heading">设置</p>
+	<div class="setting">
+		<form class="form-horizontal " role="form">
+			<fieldset>
+				<h4>全局</h4>
+				<hr>
+				<!--<div class="form-group">-->
+				<!--<label class="col-md-4 control-label tl">名称</label>-->
+				<!--<div class="col-md-7">-->
+				<!--<input type="text" class="form-control" ng-model="config.Global.DeploymentName">-->
+				<!--</div>-->
+				<!--</div>-->
+				<!--<div class="form-group">-->
+				<!--<label class="col-md-4 control-label">秘钥</label>-->
+				<!--<div class="col-md-7">-->
+				<!--<input type="text" class="form-control" ng-model="config.Global.DeploymentKey">-->
+				<!--</div>-->
+				<!--</div>-->
+				<div class="form-group">
+					<label class="col-md-4 control-label">特点</label>
+					<label class="col-md-2">
+						<input type="checkbox" class="" name="features" ng-model="sleepManager"
+							   ng-click="manipulateFeatures('sleep')">&nbsp;睡眠管理
+					</label>
+					<label class="col-md-2">
+						<input type="checkbox" class="" name="features" ng-model="externalBattery"
+							   ng-click="manipulateFeatures('battery')">&nbsp;扩展电池
+					</label>
+					<label class="col-md-2">
+						<input type="checkbox" class="" name="features" ng-model="statusRequester"
+							   ng-click="manipulateFeatures('status')">&nbsp;状态要求
+					</label>
+				</div>
+				<!--<div class="form-group">-->
+					<!--<label class="col-md-4 control-label">时间域</label>-->
+					<!--<div class="col-md-7">-->
+						<!--<select class="form-control" name="timeZone">-->
+							<!--<option value="0">Africa/Abidjan</option>-->
+							<!--<option value="1">Africa/accra</option>-->
+						<!--</select>-->
+					<!--</div>-->
+					<!--<div class="col-md-2 message-tip"-->
+						 <!--data-toggle="popover"-->
+						 <!--popover-title="时间域"-->
+						 <!--popover-placement="left"-->
+						 <!--popover-animation="true"-->
+						 <!--uib-popover="选择时间区域以便你处理相关的问题（比如：图表）"-->
+						 <!--popover-trigger="'mouseenter'">-->
+					<!--</div>-->
+				<!--</div>-->
+			</fieldset>
 
-            <fieldset>
-                <h4>绘图引擎</h4>
-                <hr>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">默认渲染方式</label>
-                    <div class="col-md-7">
-                        <select class="form-control" ng-options="backend for backend in backends"
-                                ng-model ="config.Engine.DefaultBackend">
+			<fieldset>
+				<h4>绘图引擎</h4>
+				<hr>
+				<div class="form-group">
+					<label class="col-md-4 control-label">默认渲染方式</label>
+					<div class="col-md-7">
+						<select class="form-control" ng-options="backend for backend in backends"
+								ng-model="config.Engine.DefaultBackend">
+						</select>
+					</div>
+					<div class="col-md-2 message-tip"
+						 popover-trigger="'mouseenter'"
+						 popover-title="默认背景渲染"
+						 popover-placement="left"
+						 popover-animation="true"
+						 uib-popover="HTML采用URL的方式，使用webkit引擎来绘制页面，他是visionect套件的标准接口。HTTP 方式扩展了了应用，包含更多的内容，两种不同的渲染方式都有其特点。">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">最大会话数</label>
+					<div class="col-md-7">
+						<input class="form-control" type="number" name="max_sessions"
+							   ng-model="config.Engine.MaxSessions">
+					</div>
+					<div class="col-md-2 message-tip"
+						 popover-trigger="'mouseenter'"
+						 popover-animation="true"
+						 popover-title="最大会话数"
+						 popover-placement="left"
+						 uib-popover="能够使绘图引擎绘制的会话数。">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">图片缓存尺寸</label>
+					<div class="col-md-7">
+						<input class="form-control" type="number" name="image_cache_size"
+							   ng-model="config.Engine.ImageCacheSize">
+					</div>
+					<div class="col-md-2 message-tip"
+						 popover-trigger="'mouseenter'"
+						 popover-animation="true"
+						 popover-title="图片缓存尺寸"
+						 popover-placement="left"
+						 uib-popover="缓存图片最小尺寸。">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">会话清除时间</label>
+					<div class="col-md-7">
+						<input class="form-control" type="number" ng-model="config.Engine.IdleThreshold">
+					</div>
+					<div class="col-md-2 message-tip"
+						 popover-trigger="'mouseenter'"
+						 popover-animation="true"
+						 popover-title="会话清除时间"
+						 popover-placement="left"
+						 uib-popover="设置会话消除或者销毁的时间，0表示不设置。">
+					</div>
+				</div>
+				<!--<div class="form-group">-->
+				<!--<label class="col-md-4 control-label">显示选项</label>-->
+				<!--<label class="col-md-2">-->
+				<!--<input type="checkbox" class="" name="display">&nbsp;清除屏幕-->
+				<!--</label>-->
+				<!--<label class="col-md-2">-->
+				<!--<input type="checkbox" name="display">&nbsp;绘制边框-->
+				<!--</label>-->
+				<!--<label class="col-md-2">-->
+				<!--<input type="checkbox" name="display">&nbsp;禁用反向更新-->
+				<!--</label>-->
 
-                        </select>
-                    </div>
-                    <div class="col-md-2 message-tip"
-                         popover-trigger="'mouseenter'"
-                         popover-title="默认背景渲染"
-                         popover-placement="left"
-                         popover-animation="true"
-                         uib-popover="HTML采用URL的方式，使用webkit引擎来绘制页面，他是visionect套件的标准接口。HTTP 方式扩展了了应用，包含更多的内容，两种不同的渲染方式都有其特点。">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">最大会话数</label>
-                    <div class="col-md-7">
-                        <input class="form-control" type="number" name="max_sessions" ng-model="config.Engine.MaxSessions">
-                    </div>
-                    <div class="col-md-2 message-tip"
-                         popover-trigger="'mouseenter'"
-                         popover-animation="true"
-                         popover-title="最大会话数"
-                         popover-placement="left"
-                         uib-popover="能够使绘图引擎绘制的会话数。">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">图片缓存尺寸</label>
-                    <div class="col-md-7">
-                        <input class="form-control" type="number" name="image_cache_size" ng-model="config.Engine.ImageCacheSize">
-                    </div>
-                    <div class="col-md-2 message-tip"
-                         popover-trigger="'mouseenter'"
-                         popover-animation="true"
-                         popover-title="图片缓存尺寸"
-                         popover-placement="left"
-                         uib-popover="缓存图片最小尺寸。">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">会话清除时间</label>
-                    <div class="col-md-7">
-                        <input class="form-control" type="number" ng-model="config.Engine.IdleThreshold">
-                    </div>
-                    <div class="col-md-2 message-tip"
-                         popover-trigger="'mouseenter'"
-                         popover-animation="true"
-                         popover-title="会话清除时间"
-                         popover-placement="left"
-                         uib-popover="设置会话消除或者销毁的时间，0表示不设置。">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">显示选项</label>
-                    <label class="col-md-2">
-                        <input type="checkbox" class="" name="display">&nbsp;清除屏幕
-                    </label>
-                    <label class="col-md-2">
-                        <input type="checkbox" name="display">&nbsp;绘制边框
-                    </label>
-                    <label class="col-md-2">
-                        <input type="checkbox" name="display">&nbsp;禁用反向更新
-                    </label>
-                </div>
-            </fieldset>
-            <fieldset>
-                <h4>HTML渲染</h4>
-                <hr>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">默认URL</label>
-                    <div class="col-md-7">
-                        <input type="text" class="form-control" ng-model="config.Engine.Backend.HTML.DefaultFields.url">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">页面自动加载（0不设置）</label>
-                    <div class="col-md-7">
-                        <input type="number" class="form-control" ng-model="config.Engine.Backend.HTML.DefaultFields.ReloadTimeout">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">会话存储限制</label>
-                    <div class="col-md-7">
-                        <input type="number" class="form-control" ng-model="config.Engine.Backend.HTML.WebkitSessionMemoryLimit">
-                    </div>
-                    <div class="col-md-2 message-tip"
-                         popover-trigger="'mouseenter'"
-                         popover-animation="true"
-                         popover-title="会话存储限制"
-                         popover-placement="left"
-                         uib-popover="设置会话存储的数量，防止内存泄露">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">用户代理</label>
-                    <div class="col-md-7">
-                        <input type="text" class="form-control" ng-model="config.Engine.Backend.HTML.WebkitUserAgent">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">渲染时隔</label>
-                    <div class="col-md-7">
-                        <input type="number" class="form-control" ng-model="config.Engine.Backend.HTML.RenderTimeout">
-                    </div>
-                    <div class="col-md-2 message-tip"
-                         popover-trigger="'mouseenter'"
-                         popover-animation="true"
-                         popover-title="渲染时间"
-                         popover-placement="left"
-                         uib-popover="服务何时去渲染这一块区域，特别是在复杂的区域和性能慢的机器上时间更长。">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">使用Antialias字体</label>
-                    <div class="col-md-7">
-                        <select class="form-control" ng-options="enable.value as enable.label for enable in enables"
-                                ng-model="config.Engine.Backend.HTML.FontAntialias">
+				<!--</div>-->
+			</fieldset>
+			<fieldset>
+				<h4>HTML渲染</h4>
+				<hr>
+				<div class="form-group">
+					<label class="col-md-4 control-label">默认URL</label>
+					<div class="col-md-7">
+						<input type="text" class="form-control" ng-model="config.Engine.Backend.HTML.DefaultFields.url">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">页面自动加载（0不设置）</label>
+					<div class="col-md-7">
+						<input type="text" class="form-control"
+							   ng-model="config.Engine.Backend.HTML.DefaultFields.ReloadTimeout">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">会话存储限制</label>
+					<div class="col-md-7">
+						<input type="number" class="form-control"
+							   ng-model="config.Engine.Backend.HTML.WebkitSessionMemoryLimit">
+					</div>
+					<div class="col-md-2 message-tip"
+						 popover-trigger="'mouseenter'"
+						 popover-animation="true"
+						 popover-title="会话存储限制"
+						 popover-placement="left"
+						 uib-popover="设置会话存储的数量，防止内存泄露">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">用户代理</label>
+					<div class="col-md-7">
+						<input type="text" class="form-control" ng-model="config.Engine.Backend.HTML.WebkitUserAgent">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">渲染超时时间</label>
+					<div class="col-md-7">
+						<input type="number" class="form-control" ng-model="config.Engine.Backend.HTML.RenderTimeout">
+					</div>
+					<div class="col-md-2 message-tip"
+						 popover-trigger="'mouseenter'"
+						 popover-animation="true"
+						 popover-title="渲染时间"
+						 popover-placement="left"
+						 uib-popover="服务何时去渲染这一块区域，特别是在复杂的区域和性能慢的机器上时间更长。">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">使用Antialias字体</label>
+					<div class="col-md-7">
+						<select class="form-control" ng-options="enable.value as enable.label for enable in enables"
+								ng-model="config.Engine.Backend.HTML.FontAntialias">
 
-                        </select>
-                    </div>
-                    <div class="col-md-2 message-tip"
-                         popover-trigger="'mouseenter'"
-                         popover-toggle="popover"
-                         popover-title="使用Antialias字体"
-                         popover-placement="left"
-                         uib-popover="使用Antialias字体，在设备上显示效果很好，除非你使用自己更好的字体显示。">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">使用页面缓存</label>
-                    <div class="col-md-7">
-                        <select class="form-control" ng-options="enable.value as enable.label for enable in enables"
-                                ng-model="config.Engine.Backend.HTML.PageCaching">
+						</select>
+					</div>
+					<div class="col-md-2 message-tip"
+						 popover-trigger="'mouseenter'"
+						 popover-toggle="popover"
+						 popover-title="使用Antialias字体"
+						 popover-placement="left"
+						 uib-popover="使用Antialias字体，在设备上显示效果很好，除非你使用自己更好的字体显示。">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">使用页面缓存</label>
+					<div class="col-md-7">
+						<select class="form-control" ng-options="enable.value as enable.label for enable in enables"
+								ng-model="config.Engine.Backend.HTML.PageCaching">
 
-                        </select>
-                    </div>
-                </div>
-            </fieldset>
-            <fieldset>
-                <h4>设备默认设置</h4>
-                <hr>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">忽视设备的不同步输入</label>
-                    <div class="col-md-7">
-                        <select class="form-control" ng-options="enable.value as enable.label for enable in enables"
-                                ng-model="config.Engine.IgnoreInputIfDeviceNotSync">
+						</select>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<h4>设备默认设置</h4>
+				<hr>
+				<div class="form-group">
+					<label class="col-md-4 control-label">忽视设备的不同步输入</label>
+					<div class="col-md-7">
+						<select class="form-control" ng-options="enable.value as enable.label for enable in enables"
+								ng-model="config.Engine.IgnoreInputIfDeviceNotSync">
 
-                        </select>
-                    </div>
-                    <div class="col-md-2 message-tip"
-                         popover-trigger="'mouseenter'"
-                         popover-toggle="popover"
-                         popover-title="忽略设备不同步输入"
-                         popover-placement="left"
-                         uib-popover="忽略任何改设备上的点击请你，这意味着你点击请求将不会影响新的代替旧的。">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">灰度</label>
-                    <div class="col-md-7">
-                        <select class="form-control" ng-options="depth.value as depth.label for depth in depths"
-                                ng-model="config.Engine.Encoding">
+						</select>
+					</div>
+					<div class="col-md-2 message-tip"
+						 popover-trigger="'mouseenter'"
+						 popover-toggle="popover"
+						 popover-title="忽略设备不同步输入"
+						 popover-placement="left"
+						 uib-popover="忽略任何改设备上的点击请你，这意味着你点击请求将不会影响新的代替旧的。">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">灰度</label>
+					<div class="col-md-7">
+						<select class="form-control" ng-options="depth.value as depth.label for depth in depths"
+								ng-model="config.Engine.Encoding">
 
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">显示角度</label>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">显示角度</label>
 
-                    <div class="col-md-7">
-                        <select class="form-control" ng-options="rotation.value as rotation.label for rotation in rotations"
-                                ng-model="config.Engine.Backend.HTML.PageLayout">
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">抖动</label>
-                    <div class="col-md-7">
-                        <select class="form-control" ng-options="dithering.value as dithering.label for dithering in ditherings"
-                                ng-model="config.Engine.DitheringMethod">
+					<div class="col-md-7">
+						<select class="form-control"
+								ng-options="rotation.value as rotation.label for rotation in rotations"
+								ng-model="config.Engine.Backend.HTML.PageLayout">
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">抖动</label>
+					<div class="col-md-7">
+						<select class="form-control"
+								ng-options="dithering.value as dithering.label for dithering in ditherings"
+								ng-model="config.Engine.DitheringMethod">
 
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">支持矩形区域</label>
-                    <div class="col-md-7">
-                        <select class="form-control" ng-options="enable.value as enable.label for enable in enables" ng-model="config.Engine.ForceRectangleSupport">
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">支持矩形区域</label>
+					<div class="col-md-7">
+						<select class="form-control" ng-options="enable.value as enable.label for enable in enables"
+								ng-model="config.Engine.ForceRectangleSupport">
 
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">同步组</label>
-                    <div class="col-md-7">
-                        <select class="form-control" ng-options="enable.value as enable.label for enable in enables"
-                                ng-model="config.Engine.ForceSyncGroup">
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">同步组</label>
+					<div class="col-md-7">
+						<select class="form-control" ng-options="enable.value as enable.label for enable in enables"
+								ng-model="config.Engine.ForceSyncGroup">
 
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">仅目前所在的设备同步</label>
-                    <div class="col-md-7">
-                        <select class="form-control" ng-options="enable.value as enable.label for enable in enables"
-                                ng-model="config.Engine.GroupSyncOnlyIfAllDevicesArePresent">
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">仅目前所在的设备同步</label>
+					<div class="col-md-7">
+						<select class="form-control" ng-options="enable.value as enable.label for enable in enables"
+								ng-model="config.Engine.GroupSyncOnlyIfAllDevicesArePresent">
 
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">固件自动更新</label>
-                    <div class="col-md-7">
-                        <select class="form-control" ng-options="support.value as support.label for support in supports"
-                                ng-model="config.Global.AutoUpdater">
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">固件自动更新</label>
+					<div class="col-md-7">
+						<select class="form-control" ng-options="support.value as support.label for support in supports"
+								ng-model="config.Global.AutoUpdater">
 
-                        </select>
-                    </div>
-                    <div class="col-md-2 message-tip"
-                         popover-trigger="'mouseenter'"
-                         popover-toggle="popover"
-                         popover-title="自动固件更新"
-                         popover-placement="left"
-                         uib-popover="自动更新到最新的使用固件。">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">加载器自动更新</label>
-                    <div class="col-md-7">
-                        <select class="form-control" ng-options="support.value as support.label for support in supports"
-                                ng-model="config.Global.AutoBootUpdater">
+						</select>
+					</div>
+					<div class="col-md-2 message-tip"
+						 popover-trigger="'mouseenter'"
+						 popover-toggle="popover"
+						 popover-title="自动固件更新"
+						 popover-placement="left"
+						 uib-popover="自动更新到最新的使用固件。">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">加载器自动更新</label>
+					<div class="col-md-7">
+						<select class="form-control" ng-options="support.value as support.label for support in supports"
+								ng-model="config.Global.AutoBootUpdater">
 
-                        </select>
-                    </div>
-                    <div class="col-md-2 message-tip"
-                         popover-trigger="'mouseenter'"
-                         popover-toggle="popover"
-                         popover-title="自动更新加载程序"
-                         popover-placement="left"
-                         uib-popover="自动更新到最新的加载程序。">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">设备状态池</label>
-                    <div class="col-md-7">
-                        <input type="number" class="form-control" ng-model="config.Global.DeviceStatePolling">
-                    </div>
-                    <div class="col-md-2 message-tip"
-                         popover-trigger="'mouseenter'"
-                         popover-toggle="popover"
-                         popover-title="设备状态池"
-                         popover-placement="left"
-                         uib-popover="一分钟内有多少设备处于服务队列中。">
-                    </div>
-                </div>
-            </fieldset>
-            <fieldset>
-                <h4>固件</h4>
-                <hr>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">固件仓库</label>
-                    <div class="col-md-7">
-                        <input type="text" class="form-control" ng-model="config.FirmwareRepository[0]">
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-    <div class="bottomBtn">
-        <div class="btn-group pull-right mr mt">
-            <button type="button" class="btn btn-danger" ng-click="restartServices()">重启服务</button>
-            <button type="button" class="btn btn-primary" ng-click="downloadLogs()">下载日志</button>
-            <!--<button type="button" class="btn btn-default">取消</button>-->
-            <button type="button" class="btn btn-primary" ng-click="save()">保存</button>
-        </div>
-    </div>
+						</select>
+					</div>
+					<div class="col-md-2 message-tip"
+						 popover-trigger="'mouseenter'"
+						 popover-toggle="popover"
+						 popover-title="自动更新加载程序"
+						 popover-placement="left"
+						 uib-popover="自动更新到最新的加载程序。">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">设备轮询时间</label>
+					<div class="col-md-7">
+						<input type="number" class="form-control" ng-model="config.Global.DeviceStatePolling">
+					</div>
+					<div class="col-md-2 message-tip"
+						 popover-trigger="'mouseenter'"
+						 popover-toggle="popover"
+						 popover-title="设备轮询"
+						 popover-placement="left"
+						 uib-popover="服务器多久查询一次设备的状态（以分钟为单位）">
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<h4>固件</h4>
+				<hr>
+				<div class="form-group">
+					<label class="col-md-4 control-label">固件仓库</label>
+					<div class="col-md-7">
+						<input type="text" class="form-control" ng-model="config.FirmwareRepository[0]">
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+	<div class="bottomBtn">
+		<div class="btn-group pull-right mr mt">
+			<button type="button" class="btn btn-danger" ng-click="restartServices()">重启服务</button>
+			<button type="button" class="btn btn-primary" ng-click="downloadLogs()">下载日志</button>
+			<!--<button type="button" class="btn btn-default">取消</button>-->
+			<button type="button" class="btn btn-primary" ng-click="save()">保存</button>
+		</div>
+	</div>
 </section>

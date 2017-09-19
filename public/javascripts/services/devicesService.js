@@ -68,8 +68,8 @@ define(['app'], function(app){
 				});
 				return promise;
 			},
-			saveSession: function(data, config){
-				var promise = $http.put('/api/session/', data, config).then(function(response){
+			saveSession: function(data, uuid){
+				var promise = $http.put('/api/session/'+uuid, data).then(function(response){
 					return response;
 				});
 				return promise;

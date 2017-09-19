@@ -124,12 +124,11 @@ define(['moment', 'Chart.bundle', 'angular', 'services/devicesService', 'service
 						toastr.error("设备状态和设置保存失败!");
 					}
 				});
-				devicesService.saveSession(session, {params:{id: session.Uuid}}).then(function(rs){
+				devicesService.saveSession(session, session.Uuid).then(function(rs){
 					if(rs.status == 204){
 						toastr.success('设备会话保存成功！');
 					}else{
 						toastr.error("设备会话保存失败!");
-
 					}
 				});
 			};

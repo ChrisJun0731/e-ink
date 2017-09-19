@@ -10,8 +10,8 @@ define(['app'], function(app){
 				});
 				return promise;
 			},
-			updateUser: function(data, config){
-				var promise = $http.put('/api/user/', data, config).then(function(response){
+			updateUser: function(data, username){
+				var promise = $http.put('/api/user/'+username, data).then(function(response){
 					return response;
 				});
 				return promise;

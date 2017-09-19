@@ -11,7 +11,7 @@ router.get('/api/user/', function(req, res){
 	proxy.forwardGetRequest();
 });
 
-router.put('/api/user/', function(req, res){
+router.put('/api/user/:username', function(req, res){
 	var proxy = new Proxy(req, res);
 	proxy.forwardPutRequest();
 });
