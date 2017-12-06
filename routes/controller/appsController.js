@@ -23,6 +23,6 @@ router.put('/api/app/', function(req, res){
 router.post('/api/app/', function(req, res){
 	var proxy = new Proxy(req, res);
 	proxy.forwardPostRequest();
-})
+});
 
 module.exports = router;
